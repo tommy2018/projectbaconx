@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Crisp</title>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+var CHUNK_SIZE = 1048576; /* 1 MB */
+
+$(document).ready(function(e) {
+	$('#files').on('change', function(e) {
+		var files = e.target.files;
+		for (var i = 0; i < files.length; i++) uploadHandler(files[i]);
+	});
+});
+
+function uploadHandler(file) {
+	var numOfChunk = Math.ceil(file.size / CHUNK_SIZE);
+	var currentChunk = 0;
+	var callback = null;
+	var process = null;
+	var uploader = null;
+	
+	callback = function(e) {
+		if (e.target.error == null) {
+			uploader(e.target.result, currentChunk);
+			currentChunk++;
+		}
+		
+		process();
+	}
+	
+	process = function() {
+		if (currentChunk >= numOfChunk) return;
+		
+		var fileReader = new FileReader();
+		var slicedFile = null;
+		
+		slicedFile = file.slice(currentChunk * CHUNK_SIZE, (((currentChunk * CHUNK_SIZE + CHUNK_SIZE) > file.size) ? file.size : (currentChunk * CHUNK_SIZE + CHUNK_SIZE)));
+		
+		fileReader.onloadend = callback;
+		fileReader.readAsArrayBuffer(slicedFile);
+	}
+	
+	uploader = function(data, chunkNum) {
+		var formData = new FormData();
+		
+		formData.append('file', new Blob([data]), 's');
+		
+		$.ajax({
+				url:'upload.php?chunk=' + chunkNum,
+				type:'POST',
+				data:formData,
+				processData:false,
+				contentType:false,
+				cache:false,
+				xhr: function() {
+					var xhr = $.ajaxSettings.xhr(event);
+					if (xhr.upload) {
+						xhr.upload.timestamp = Date.now();
+					}
+					return xhr;
+				},
+				success:function(data) {
+					if (!data.success) {
+						alert('ERROR!!! ' . data.errorMessage);
+					}
+				},
+				error:function() {
+					alert('ERROR');
+				}
+		});
+	}
+	
+	process();
+}
+
+function append(message) {
+	$('#app').html(message);
+}
+</script>
+</head>
+
+<body>
+<input type="file" id="files" multiple>
+<p id="app"></p>
+</body>
+</html>
