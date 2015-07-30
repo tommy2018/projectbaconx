@@ -1,0 +1,34 @@
+config.inc.php and function-common.php have already included in global.inc.php
+every page should include global.inc.php
+
+Class:
+Template:
+	display
+	assign
+	addScript
+	addStylesheet
+	setTitle
+
+User
+	#getUserByUid
+	#login
+	getUsername
+	getUid
+	
+Database:
+	#getInstance()
+	connect
+	getCount
+
+#: Static function
+
+Request (API):
+login:
+	Post: username, password
+	Return: UID, username
+
+How to form a page:
+	Create a template class in the controller file
+	Includes the controller in a page
+	Create the template file and place it into the directory called "templates"
+	
