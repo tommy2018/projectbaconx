@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<style>
+body {
+	font-family: sans-serif;
+}
+#signin {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.75);
+	display:none;
+}
+#signin_frame {
+	background: rgba(255,255,255,1.00);
+	width: 300px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -200px 0 0 -160px;
+	padding: 35px 25px 25px 25px;
+	border-radius: 6px;
+	position:relative;
+}
+#signin_title {
+	text-align: center;
+	font-size: 25px;
+	color: rgba(75,75,75,1.00);
+	display: inline-block;
+	width: 100%;
+}
+#signin_problem_link {
+	font-size: 13.5px;
+}
+</style>
+</head>
+
+<body>
+<img src="bg.jpg">
+<div id="signin">
+  <div id="signin_frame">
+    <button type="button" style="border:none; background:none; position:absolute; right:10px; top:15px;"><img src="cross.png" style="width:20px;"></button>
+    <span id="signin_title">Sign in</span>
+    <hr>
+    <form>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-default" id="signin_form_submit">Sign in</button>
+    </form>
+    <hr>
+    <a href="#" id="signin_problem_link"><i class="fa fa-question-circle"></i> Having trouble to sign in</a> </div>
+</div>
+</body>
+</html>

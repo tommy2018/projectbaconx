@@ -5,7 +5,12 @@ class EntityGroup {
 	private $name;
 	private $description;
 	
-	private function __construct()  {}
+	private function __construct($id, $eventID, $name, $description)  {
+		$this->id = $id;
+		$this->eventID = $eventID;
+		$this->name = $name;
+		$this->description = $description;
+	}
 	
 	static public function getEntityGroupListByEventID($eventID) {
 		$db = Database::getInstance();
@@ -16,6 +21,17 @@ class EntityGroup {
 		if ($stmt->execute(array('eventID' => $eventID)))
 			if ($result = $stmt->fetchAll())
 				return $result;
+	}
+	
+	static public function getEntityGroupByID($id) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT id, eventID, name, description FROM entity_group WHERE id = :id');
+		
+		if ($stmt->execute(array('id' => $id)))
+			if ($result = $stmt->fetch())
+				return new EntityGroup($result['id'], $result['eventID'], $result['name'], $result['description']);
 	}
 	
 	public function getID() {

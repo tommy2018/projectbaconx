@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script>
+$(document).ready(function(e) {
+    $("#aaa").on('click', function() {
+		$("#side_menu").hide();
+		$('#main_frame').css('left', '0');
+	});
+	
+	$("#aab").on('click', function() {
+		$("#side_menu").show();
+		$('#main_frame').css('left', '250px');
+	});
+});
+</script>
+<style>
+html, body {
+	height: 100%;
+}
+#side_menu {
+	background: rgba(51,51,51,1.00);
+	color: rgba(255,255,255,1.00);
+	width: 250px;
+	height: 100%;
+	float: left;
+}
+#main_frame {
+	background: rgba(162,162,162,1.00);
+	height: 100%;
+	position: fixed;
+	left: 250px;
+	width: 100%;
+}
+</style>
+</head>
+
+<body>
+<nav id="side_menu"> Side Menu </nav>
+<div class="container-fluid" id="main_frame">
+  <div class="row">
+    <div class="col-lg-2" style="background:rgba(150,150,150,1.00); height:100%;"> Side </div>
+    <div class="col-lg-10" style="background:rgba(225,225,225,1.00); height:100%;"> Main
+      <input  type="button" value="Hide" id="aaa">
+      <input  type="button" value="Show" id="aab">
+    </div>
+  </div>
+</div>
+</body>
+</html>
