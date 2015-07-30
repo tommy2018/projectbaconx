@@ -30,6 +30,12 @@ UserSession:
 	signOut()
 	isSignedIn()
 
+EntityGroup:
+	#getEntityGroupListByEventID() //Return an array of records in the format: {0: {id, name}, 1: {id, name}, ...}
+	getID()
+	getEventID()
+	getName()
+	getDescription()
 
 #: Static function
 
