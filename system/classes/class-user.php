@@ -1,5 +1,4 @@
 <?php
-include_once 'functions-common.php';
 include_once 'class-database.php';
 
 class User {

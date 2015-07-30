@@ -15,8 +15,6 @@ if (isset($this->context['core']['script']))
 </head>
 
 <body>
-<?php
-if (isset($this->context['core']['body'])) include $this->context['core']['body'];
-?>
+<?php if (isset($this->context['core']['body'])) include $this->context['core']['body']; ?>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <?php
-include_once 'system/functions-common.php';
-include_once 'system/class-template.php';
+include_once 'system/classes/class-template.php';
 
 $template = new Template();
 

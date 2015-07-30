@@ -1,6 +1,4 @@
 <?php
-include_once 'functions-common.php';
-
 class Template {
 	private $context;
 	
