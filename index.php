@@ -2,13 +2,13 @@
 include_once 'global.inc.php';
 include_once 'controllers/controller-home.php';
 include_once 'system/classes/class-userSession.php';
+include_once 'system/classes/class-event.php';
 
-$userSession = UserSession::getInstance();
+$object = Event::getEventByID(1);
 
-if ($_GET['request'] == 'login') $userSession->signIn('tommy', 'password');
+if ($object) {
+	echo($object->getEventID() . ': ' . $object->getName());
+	echo(' Number of entity group: ' . $object->getEntityGroupCount());
+}
 
-if ($user = $userSession->isSignedIn())
-	echo($user->getUsername());
-else
-	echo("FALSE");
 ?>

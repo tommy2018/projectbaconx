@@ -3,7 +3,7 @@ include_once 'class-user.php';
 
 class UserSession {
 	private static $self;
-	private $user = null;
+	private $user;
 	
 	private function __construct() {
 		if ($uid = self::getSessionData('uid') && $securityToken = self::getSessionData('securityToken'))

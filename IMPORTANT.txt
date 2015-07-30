@@ -24,13 +24,11 @@ Database:
 Log:
 	#newLog()
 
-Core:
+UserSession:
 	#getInstance()
 	signIn()
 	signOut()
 	isSignedIn()
-	getUser()
-	
 
 
 #: Static function
