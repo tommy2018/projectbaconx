@@ -14,11 +14,24 @@ User
 	#login
 	getUsername
 	getUid
+	getSecurityToken
 	
 Database:
 	#getInstance()
 	connect
 	getCount
+	
+Log:
+	#newLog()
+
+Core:
+	#getInstance()
+	signIn()
+	signOut()
+	isSignedIn()
+	getUser()
+	
+
 
 #: Static function
 
