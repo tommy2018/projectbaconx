@@ -4,51 +4,89 @@
 <meta charset="UTF-8">
 <title>Index</title>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <script>
 $(document).ready(function(e) {
-    $("#aaa").on('click', function() {
-		$("#side_menu").hide();
-		$('#main_frame').css('left', '0');
-	});
-	
-	$("#aab").on('click', function() {
-		$("#side_menu").show();
-		$('#main_frame').css('left', '250px');
-	});
 });
 </script>
 <style>
-html, body {
-	height: 100%;
+body {
+	background:rgba(221,221,221,1.00);
 }
-#side_menu {
-	background: rgba(51,51,51,1.00);
-	color: rgba(255,255,255,1.00);
-	width: 250px;
-	height: 100%;
-	float: left;
+#header {
+	background:rgba(18,18,18,1.00);
+	color:rgba(229,229,229,1.00);
+	padding:25px;
 }
 #main_frame {
-	background: rgba(162,162,162,1.00);
 	height: 100%;
-	position: fixed;
-	left: 250px;
-	width: 100%;
+	padding-top: 25px;
+}
+#projects {
+	background: rgba(255,255,255,0.95);
+	min-height: 500px;
+	border-radius: 2px;
+	padding: 15px;
+}
+#projects .top .title {
+	color: rgba(88,88,88,1.00);
+	font-size: 20px;
+}
+#projects .top hr {
+	margin-top: 10px;
+}
+#projects .top .button_group {
+	float: right;
+}
+.row {
+	margin-bottom: 20px;
 }
 </style>
 </head>
 
 <body>
-<nav id="side_menu"> Side Menu </nav>
+<div id="header"><div style="font-size:28px;">Project Bacon X</div><br><div style="font-size:30px; font-weight:bold;">DASHBOARD</div></div>
 <div class="container-fluid" id="main_frame">
   <div class="row">
-    <div class="col-lg-2" style="background:rgba(150,150,150,1.00); height:100%;"> Side </div>
-    <div class="col-lg-10" style="background:rgba(225,225,225,1.00); height:100%;"> Main
-      <input  type="button" value="Hide" id="aaa">
-      <input  type="button" value="Show" id="aab">
+    <div class="col-md-4">
+      <div id="projects">
+        <div class="top">
+          <div class="button_group"><i class="fa fa-refresh"></i> Refresh</div>
+          <span class="title"><i class="fa fa-bell-o"></i> NOTICE BOARD</span>
+          <hr>
+        </div>
+        <div class="middle">FROM: Luke McAven<br>EVENT: Computer Science & Information Technology Tradeshow 2015<br><br>This is a demo message, please ignore it.<br><br>Friday 31st July 2015<hr></div>
+        <div class="bottom"><div style="float:right;"><i class="fa fa-chevron-left"></i> Page 1 / 4 <i class="fa fa-chevron-right"></i></div></div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div id="projects">
+        <div class="top">
+          <div class="button_group"><i class="fa fa-refresh"></i> Refresh</div>
+          <span class="title"><i class="fa fa-leaf"></i> PROJECTS</span>
+          <hr>
+        </div>
+        <div class="content">
+          <div class="well">
+            <table>
+            <tr>
+                <td>Event:</td>
+                <td>Computer Science & Information Technology Tradeshow 2015</td>
+              </tr>
+              <tr>
+                <td>Name:</td>
+                <td>Project Bacon X</td>
+              </tr>
+              <tr>
+              	<td>Role:</td>
+                <td>Supervisor</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
