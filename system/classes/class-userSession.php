@@ -32,9 +32,9 @@ class UserSession {
 			$this->setSessionData('securityToken', $this->user->getSecurityToken());
 			$this->setSessionData('useragent', $_SERVER['HTTP_USER_AGENT']);
 				
-			return true;
+			return $this->user;
 		} else
-			return false;
+			return null;
 	}
 	
 	public function isSignedIn() {
@@ -49,7 +49,7 @@ class UserSession {
 	
 	
 	private static function getSessionData($index) {
-		return (isset($_SESSION[$index]) ? $_SESSION[$index] : NULL);
+		return (isset($_SESSION[$index]) ? $_SESSION[$index] : null);
 	}
 	
 	private static function setSessionData($index, $value) {

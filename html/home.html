@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <style>
 body {
@@ -21,36 +21,62 @@ body {
 }
 #signin_frame {
 	background: rgba(255,255,255,1.00);
-	width: 300px;
+	width:400px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	margin: -200px 0 0 -160px;
-	padding: 35px 25px 25px 25px;
-	border-radius: 6px;
-	position:relative;
+	margin: -300px 0 0 -200px;
+	padding: 65px 40px 65px 40px;
+	position: relative;
+	box-shadow: 0 6px 6px rgba(5,5,5,0.10);
 }
-#signin_title {
+#signin .title {
 	text-align: center;
 	font-size: 25px;
 	color: rgba(75,75,75,1.00);
 	display: inline-block;
 	width: 100%;
 }
-#signin_problem_link {
+#signin .problem_link {
 	font-size: 13.5px;
 }
+#signin_error_message {
+	background:#DA5C5E;
+	color:#FFFFFF;
+	text-align:center;
+	font-size:16px;
+	padding:8px 0 8px 0;
+	margin-bottom:18px;
+	display:none;
+}
+#signin_closs_button {
+	border:none;
+	background:none;
+	position:absolute;
+	right:10px;
+	top:15px;
+}
 </style>
+<script>
+$(document).ready(function(e) {
+	$('#signin_form').on('submit', function() {
+		$('#signin_error_message').show();
+		return false;
+	});
+	
+	$('#signin_closs_button').on('click', function() { $('#signin').hide(); });
+});
+</script>
 </head>
 
 <body>
-<img src="bg.jpg">
 <div id="signin">
   <div id="signin_frame">
-    <button type="button" style="border:none; background:none; position:absolute; right:10px; top:15px;"><img src="cross.png" style="width:20px;"></button>
-    <span id="signin_title">Sign in</span>
+    <button type="button" id="signin_closs_button"><img src="cross.png" style="width:20px;"></button>
+    <div id="signin_error_message"><i class="fa fa-exclamation-circle"></i> Incorrect credentials</div>
+    <span class="title">Sign in</span>
     <hr>
-    <form>
+    <form method="post" id="signin_form">
       <div class="form-group">
         <label>Username</label>
         <input type="text" class="form-control" placeholder="Username">
@@ -59,10 +85,10 @@ body {
         <label>Password</label>
         <input type="password" class="form-control" placeholder="Password">
       </div>
-      <button type="submit" class="btn btn-default" id="signin_form_submit">Sign in</button>
+      <button type="submit" class="btn btn-default">SIGN IN</button>
     </form>
     <hr>
-    <a href="#" id="signin_problem_link"><i class="fa fa-question-circle"></i> Having trouble to sign in</a> </div>
+    <a href="#" class="problem_link"><i class="fa fa-question-circle"></i> Having trouble to sign in</a> </div>
 </div>
 </body>
 </html>
