@@ -1,12 +1,11 @@
 <?php
-include_once 'class-database.php';
-
 class Event {
 	private $eventID;
 	private $name;
 	private $startDate;
 	private $endDate;
 	private $published;
+	private $entityGroups;
 	
 	private function __construct($eventID, $name, $startDate, $endDate, $published) {
 		$this->eventID = $eventID;

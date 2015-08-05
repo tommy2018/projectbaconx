@@ -1,6 +1,8 @@
 <?php
 include_once 'system/classes/class-userSession.php';
 include_once 'system/classes/class-event.php';
+include_once 'system/classes/class-entityGroup.php';
+include_once 'system/classes/class-entity.php';
 
 class EventRequest extends Request {
 	public function processRequest() {

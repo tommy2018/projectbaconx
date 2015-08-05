@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script>
+$(document).ready(function(e) {
+});
+</script>
+<style>
+body {
+	background: rgba(236,236,236,1.00);
+	font-family: sans-serif;
+}
+#header {
+	background: #009688;
+	color: white;
+	padding: 25px;
+	box-shadow: 0 6px 6px rgba(5,5,5,0.10);
+	position: fixed;
+	top: 0;
+	height: 155px;
+	width: 100%;
+	z-index: 1;
+}
+#header .title {
+	font-size: 28px;
+}
+#header .menu .current {
+	font-size: 30px;
+	font-weight: bold;
+}
+#header .menu ul {
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+	position: relative;
+	top: -7px;
+}
+#header .menu li {
+	display: inline;
+	margin-right: 14px;
+	font-size: 16px;
+	border-bottom: rgba(255,255,255,0.85) 3px solid;
+	color: rgba(255,255,255,0.85);
+	padding-bottom: 2px;
+}
+#header .menu li:hover {
+	color: rgba(255,255,255,1.00);
+	border-color: rgba(255,255,255,1.00);
+	cursor: pointer;
+}
+#main {
+	margin-top: 155px;
+}
+#main_frame {
+	height: 100%;
+	padding-top: 25px;
+	margin: 0 10px 0 8px;
+}
+.row {
+	margin-bottom: 20px;
+}
+.card {
+	background: #FFFFFF;
+	min-height: 500px;
+	border-radius: 2px;
+	padding: 15px;
+	box-shadow: 3px 3px 3px rgba(5,5,5,0.10);
+}
+.no_padding {
+	padding: 0 !important;
+}
+.card .top .title {
+	color: rgba(88,88,88,1.00);
+	font-size: 20px;
+}
+.card .top hr {
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.card .top .button_group {
+	float: right;
+}
+#projects {
+	min-height: 650px;
+}
+#projects .content .entity {
+	padding: 18px 15px 18px 15px;
+}
+#projects .content .entity span {
+	margin-bottom: 5px;
+	display: inline-block;
+}
+#projects .content .entity .entity_title {
+	font-size: 20px;
+	color: #00897B;
+}
+#projects .content .entity .entity_group {
+	font-size: 15px;
+	color: #616161;
+}
+#projects .content .entity .entity_role {
+	font-size: 15px;
+	color: #616161;
+}
+#projects .content .entity:hover {
+	background:rgba(235,235,235,0.30);
+	cursor: pointer;
+}
+#projects .content hr {
+	margin: 0;
+}
+#sidebar {
+	background: #FFFFFF;
+	box-shadow: 2px 0 2px rgba(0,0,0,0.10);
+	width: 280px;
+	position: fixed;
+	height: 100%;
+}
+</style>
+</head>
+
+<body>
+<div id="header">
+  <div class="title">Project Bacon X</div>
+  <br>
+  <div class="menu"><span class="current">WELCOME</span> </div>
+</div>
+<div id="main">
+  <div class="container-fluid" id="main_frame">
+    <div class="row">
+      <div class="col-md-8">
+        <div id="projects" class="card">
+          <div class="top">
+            <div class="button_group"><i class="fa fa-refresh"></i></div>
+            <span class="title"><i class="fa fa-leaf"></i> PROJECTS</span>
+            <hr>
+          </div>
+          <div class="content">
+            <div class="entity"> <span class="entity_title">Tradeshow Management Toolkit</span><br>
+              <span class="entity_group"><i class="fa fa-university"></i> Computer Scienct & Information Technology Tradeshow 2015</span><br>
+              <span class="entity_role"><i class="fa fa-users"></i> Supervisor</span> </div>
+            <hr>
+            <div class="entity"> <span class="entity_title">Refree Appointment Optimiser</span><br>
+              <span class="entity_group"><i class="fa fa-university"></i> Computer Scienct & Information Technology Tradeshow 2015</span><br>
+              <span class="entity_role"><i class="fa fa-users"></i> Supervisor</span> </div>
+            <hr>
+            <div class="entity"> <span class="entity_title">Music Matcher</span><br>
+              <span class="entity_group"><i class="fa fa-university"></i> Computer Scienct & Information Technology Tradeshow 2015</span><br>
+              <span class="entity_role"><i class="fa fa-users"></i> Group Member</span> </div>
+            <hr>
+          </div>
+          <div class="bottom"> </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="notice_board" class="card">
+          <div class="top">
+            <div class="button_group"><i class="fa fa-refresh"></i></div>
+            <span class="title"><i class="fa fa-calendar"></i> CALENDAR</span>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
