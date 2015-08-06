@@ -3,32 +3,53 @@ include_once 'system/classes/class-userSession.php';
 include_once 'system/classes/class-event.php';
 include_once 'system/classes/class-entityGroup.php';
 include_once 'system/classes/class-entity.php';
+include_once 'system/classes/class-userRole.php';
 
-class EventRequest extends Request {
+class EventRequest {
 	public function processRequest() {
-		if (!isset($_GET['do'])) return array('success' => false, 'errorMessage' => 'Invalid request');
+		if (!isset($_GET['do'])) return array(false, 'Invalid request');
 		
 		$do = $_GET['do'];
 		
 		switch ($do) {
 			case 'getEventList':
 				return $this->getEventList();
+			case 'getEntity':
+				return $this->getEntity();
 			default:
-				return array('success' => false, 'errorMessage' => 'Invalid request');
+				return array(false, 'Invalid request');
 		}
 	}
 	
 	private function getEventList() {
 		$userSession = UserSession::getInstance();
-		$events = Event::getEvents(2);
+		$events = Event::getEvents(1);
 		$result = [];
 		
-		if (is_array($events)) {
+		if (is_array($events))
 			foreach ($events as $event)
 				if (is_a($event, 'Event')) $result[] = array('id' => $event->getEventID(), 'name' => $event->getName(), 'startDate' => $event->getStartDate(), 'endDate' => $event->getEndDate());
-		}
 		
-		return array('success' => true, 'result' => $result);
+		return array(true, $result);
 	}
+	
+	private function getEntity() {
+		if (!isset($_POST['id'])) return array(false, 'Invalid request');
+		if (!preg_match('/^[1-9][0-9]*$/', $_POST['id'])) return array(false, 'Invalid request');
+		
+		$id = $_POST['id'];
+		
+		if ($entity = Entity::getEntityByID($id))
+			return array(true, array(
+					'id' => $entity->getID(),
+					'name' => $entity->getName(),
+					'description' => $entity->getDescription(),
+					'members' => UserRole::getUserAndRoleListByEntityID($entity->getID())
+			));
+		else
+			return array(false, 'Can\'t retrieve the object you requested for.');
+	}
+	
+	
 }
 ?>

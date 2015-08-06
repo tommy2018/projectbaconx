@@ -51,8 +51,41 @@ class User {
 		return null;
 	}
 	
+	public function changePassword($oldPassword, $newPassword) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('UPDATE user SET password = :newPassword WHERE uid = :uid AND password = :oldPassword');
+		
+		$oldPassword = hashString($oldPassword);
+		$newPassword = hashString($newPassword);
+		
+		if ($stmt->execute(array('newPassword' => $newPassword, 'oldPassword' => $oldPassword, 'uid' => $this->uid))) {
+			if ($stmt->rowCount() >= 1)
+				return true;
+		}
+		
+		return false;
+	}
+	
 	public function getUsername() {
 		return $this->username;
+	}
+	
+	public function getFirstName() {
+		return $htis->firstName;
+	}
+	
+	public function getLastName() {
+		return $this->lastName;
+	}
+	
+	public function getMiddleName() {
+		return $this->middleName;
+	}
+	
+	public function getEmail() {
+		return $this->email;
 	}
 	
 	public function getUid() {

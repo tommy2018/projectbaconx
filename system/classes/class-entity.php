@@ -24,15 +24,15 @@ class Entity {
 	}
 	
 	public function getID() {
-		return $this->id();
+		return $this->id;
 	}
 	
 	public function getEntityGroupID() {
-		return $this->getEntityGroupID();
+		return $this->entityGroupID;
 	}
 	
 	public function getName() {
-		return $this->name();
+		return $this->name;
 	}
 	
 	public function getDescription() {
