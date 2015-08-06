@@ -51,8 +51,6 @@ class UserRequest {
 		$oldPassword = $_POST['oldPassword'];
 		$newPassword = $_POST['newPassword'];
 		
-		if ($oldPassword == $newPassword) return array(false, 'Your new password is same as your old password.');
-		
 		if ($user->changePassword($oldPassword, $newPassword))
 			return array(true); 
 		else
