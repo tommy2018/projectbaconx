@@ -1,6 +1,8 @@
 <?php
 include_once 'global.inc.php';
-include_once 'system/classes/class-userRole.php';
+include_once 'system/classes/class-entity.php';
 
-print_r(UserRole::getUserAndRoleListByEntityID(1));
+$entity = Entity::getEntityByID(2);
+echo $entity->getName();
+echo($entity->updateEntityDescription('test'));
 ?>
