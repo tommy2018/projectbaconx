@@ -40,7 +40,55 @@ class UserRole {
 			
 			return $list;
 		} else return null;
+	}
+	
+	static public function newUserRole($entiyGroupID, $name, $description) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
 		
+		$stmt = $conn->prepare('INSERT INTO user_role(entityGroupID, name, description) VALUES(:entityGroupID, :name, :description)');
+		
+		if ($stmt->execute(array('entityGroupID' => $entiyGroupID, 'name' => $name, 'description' => $description))) return true; else return false;
+	}
+	
+	public function updateUserRoleDescription($newDescription) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('UPDATE user_role SET description = :newDescription WHERE rid = :rid');
+		
+		if ($stmt->execute(array('newDescription' => $newDescription, 'rid' => $this->rid))) {
+			if ($stmt->rowCount() >= 1) {
+				$this->description = $newDescription;
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public function updateAdminStatus($newAdminStatus) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('UPDATE user_role SET is_admin = :newAdminStatus WHERE rid = :rid');
+		
+		if ($stmt->execute(array('newAdminStatus' => $newAdminStatus, 'rid' => $this->rid))) {
+			if ($stmt->rowCount() >= 1) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public function addUser($uid, $entityID) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('INSERT INTO user_role_involvement(rid, entityID, uid) VALUES(:rid, :entityID, :uid)');
+		
+		if ($stmt->execute(array('rid' => $this->rid, 'entityID' => $entityID, 'uid' => $uid))) return true; else return false;
 	}
 }
 ?>

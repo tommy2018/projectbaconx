@@ -20,7 +20,7 @@ class User {
 		$this->securityToken = $securityToken;
 	}
 	
-	public static function login($username, $password) {
+	static public function login($username, $password) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -38,7 +38,7 @@ class User {
 		return null;
 	}
 	
-	public static function getUserByUid($uid) {
+	static public function getUserByUid($uid) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -49,6 +49,17 @@ class User {
 				return new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
 		
 		return null;
+	}
+	
+	static public function newUser($username, $password, $lastname, $firstname, $middlename, $email) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$password = hashString($password);
+		
+		$stmt = $conn->prepare('INSERT INTO user(username, password, firstname, lastname, middlename, email) VALUES(:username, :password, :firstname, :lastname, :middlename, :email)');
+		
+		if ($stmt->execute(array('username' => $username, 'password' => $password, 'firstname' => $firstname, 'lastname' => $lastname, 'middlename' => $middlename, 'email' => $email))) return true; else return false;
 	}
 	
 	public function changePassword($oldPassword, $newPassword) {
@@ -94,6 +105,22 @@ class User {
 	
 	public function getSecurityToken() {
 		return $this->securityToken;
+	}
+	
+	public function updateUserEmail($newEmail) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('UPDATE user SET email = :newEmail WHERE uid = :uid');
+		
+		if ($stmt->execute(array('newEmail' => $newEmail, 'uid' => $this->uid))) {
+			if ($stmt->rowCount() >= 1) {
+				$this->email = $newEmail;
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
 ?>

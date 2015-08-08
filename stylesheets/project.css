@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/* CSS Document */
+#main {
+	margin-top: 180px;
+	margin-bottom: 25px;
+}
+#main_frame {
+	margin: 0 10px 0 8px;
+}
+#project_card {
+	font-size: 24px;
+	padding: 20px;
+	background: url(../images/bg_cube.png) bottom center no-repeat rgba(255,255,255,1.00);
+}
+#project_information_card .top {
+	background: #00BCD4;
+}
+#project_information_card .content {
+	color: rgba(2,2,2,1.00);
+	font-size: 16px;
+	padding: 25px;
+}
+#group_members_card .top {
+	background: #9E9E9E;
+}
+#media_card .top {
+	background: #607D8B;
+}
+#project_card_menu {
+	margin: 20px 20px 25px 20px;
+}
+#project_card_menu_title {
+	color: rgba(38,38,38,0.75);
+}
+#project_card_menu_buttons {
+	float: right;
+	color: rgba(38,38,38,0.75);
+}
+#project_card_menu_buttons button {
+	margin-left: 10px;
+}
