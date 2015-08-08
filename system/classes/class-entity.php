@@ -38,5 +38,21 @@ class Entity {
 	public function getDescription() {
 		return $this->description;
 	}
+	
+	public function updateEntityDescription($newDescription) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('UPDATE entity SET description = :newDescription WHERE id = :id');
+		
+		if ($stmt->execute(array('newDescription' => $newDescription, 'id' => $this->id))) {
+			if ($stmt->rowCount() >= 1) {
+				$this->description = $newDescription;
+				return true;
+			};
+		}
+		
+		return false;
+	}
 }
 ?>
