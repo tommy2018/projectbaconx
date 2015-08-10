@@ -51,6 +51,38 @@ class User {
 		return null;
 	}
 	
+	static public function searchUserByUsername($username) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE username LIKE :username');
+		
+		$userList = [];
+		
+		if ($stmt->execute(array('username' => '%'.$username.'%'))) {
+			while ($result = $stmt->fetch()) {
+				$userList[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+			}
+			return $userList;
+		} else return null;
+	}
+	
+	static public function searchUserByEmail($email) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE email LIKE :email');
+		
+		$userList = [];
+		
+		if ($stmt->execute(array('email' => '%'.$email.'%'))) {
+			while ($result = $stmt->fetch()) {
+				$userList[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+			}
+			return $userList;
+		} else return null;
+	}
+	
 	static public function newUser($username, $password, $lastname, $firstname, $middlename, $email) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
