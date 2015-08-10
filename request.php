@@ -23,7 +23,12 @@ switch ($module) {
 
 /* END OF REQUEST ROUTER */
 
-if ($request) $result = $request->processRequest();
+try {
+	if ($request) $result = $request->processRequest();
+} catch (Exception $e) {
+	response(array(false, 'System error: ' . $e->getMessage()));
+}
+
 if (isset($result)) response($result); else response(array(false));
 
 function response($array) {

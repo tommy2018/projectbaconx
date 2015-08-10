@@ -30,10 +30,13 @@ class User {
 		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email FROM user WHERE username = :username AND password = :password');
 		$stmt1 = $conn->prepare('UPDATE user SET securityToken = :securityToken WHERE uid = :uid');
 		
-		if ($stmt->execute(array('username' => $username, 'password' => $password)))
+		if ($stmt->execute(array('username' => $username, 'password' => $password))) {
 			if ($result = $stmt->fetch())
 				if ($stmt1->execute(array('uid' => $result['uid'], 'securityToken' => $securityToken)))
 					return new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $securityToken);
+				else
+					throw new PBXException('db-00');
+		} else throw new PBXException('db-00');
 		
 		return null;
 	}
@@ -44,9 +47,10 @@ class User {
 		
 		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE uid = :uid');
 		
-		if ($stmt->execute(array('uid' => $uid)))
+		if ($stmt->execute(array('uid' => $uid))) {
 			if ($result = $stmt->fetch())
 				return new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+		} else throw new PBXException('db-00');
 		
 		return null;
 	}
@@ -139,20 +143,18 @@ class User {
 		return $this->securityToken;
 	}
 	
-	public function updateUserEmail($newEmail) {
+	public function updateEmail($email) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE user SET email = :newEmail WHERE uid = :uid');
+		$stmt = $conn->prepare('UPDATE user SET email = :email WHERE uid = :uid');
 		
-		if ($stmt->execute(array('newEmail' => $newEmail, 'uid' => $this->uid))) {
+		if ($stmt->execute(array('email' => $email, 'uid' => $this->uid))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->email = $newEmail;
+				$this->email = $email;
 				return true;
-			}
-		}
-		
-		return false;
+			} else return false;
+		} else throw new PBXException('db-00');
 	}
 }
 ?>
