@@ -13,6 +13,8 @@ class UserRequest {
 				return $this->signIn();
 			case 'signout':
 				return $this->signOut();
+			case 'isSignedIn':
+				return $this->isSignedIn();
 			case 'changePassword':
 				return $this->chnagePassword();
 			default:
@@ -41,6 +43,15 @@ class UserRequest {
 		return array(true);
 	}
 	
+	private function isSignedIn() {
+		$userSession = UserSession::getInstance();
+		
+		if ($user = $userSession->isSignedIn())
+			return array(true, array('uid' => $user->getUID(), 'username' => $user->getUsername()));
+		else
+			return array(true, false);
+	}
+	
 	private function chnagePassword() {
 		$userSession = UserSession::getInstance();
 		
@@ -50,8 +61,6 @@ class UserRequest {
 		
 		$oldPassword = $_POST['oldPassword'];
 		$newPassword = $_POST['newPassword'];
-		
-		if ($oldPassword == $newPassword) return array(false, 'Your new password is same as your old password.');
 		
 		if ($user->changePassword($oldPassword, $newPassword))
 			return array(true); 

@@ -7,13 +7,14 @@ class Template {
 		
 		if (file_exists($file)) {
 			$this->context['core']['body'] = $file;
-			include_once DOC_ROOT. 'templates/core/core.php';
-		} else
-			fatalError('Template file not found');
+		
+		global $setting;
+		include_once DOC_ROOT. 'templates/core/core.php';
+		} else fatalError('Template file not found');
 	}
 	
-	public function assign($name, $object) {
-		$this->context['content'][$name] = $object;
+	public function assign($index, $object) {
+		$this->context['content'][$index] = $object;
 	}
 	
 	public function addScript($filename) {
@@ -26,6 +27,13 @@ class Template {
 	
 	public function setTitle($title) {
 		$this->context['core']['title'] = $title;
+	}
+	
+	private function getVar($index) {
+		if (isset($this->context['content'][$index])) 
+			return $this->context['content'][$index]; 
+		else
+			return null;
 	}
 }
 ?>

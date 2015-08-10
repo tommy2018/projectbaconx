@@ -1,4 +1,87 @@
 @CHARSET "UTF-8";
 body {
-	margin: 0;
+	background: rgba(236,236,236,1.00);
+	font-family: sans-serif;
+}
+#main {
+	margin-top: 180px;
+	margin-bottom: 25px;
+}
+#main_frame {
+	margin: 0 10px 0 8px;
+}
+#project_card {
+	font-size: 24px;
+	padding: 20px;
+	background: url(../images/bg_cube.png) bottom center no-repeat rgba(255,255,255,1.00);
+}
+#project_information_card .top {
+	background: #00BCD4;
+}
+#project_information_card .content {
+	color: rgba(2,2,2,1.00);
+	font-size: 16px;
+	padding: 25px;
+}
+#group_members_card .top {
+	background: #9E9E9E;
+}
+#media_card .top {
+	background: #607D8B;
+}
+.card {
+	background: #FFFFFF;
+	border-radius: 2px;
+	box-shadow: 3px 3px 3px rgba(5,5,5,0.10);
+	margin-bottom: 20px;
+}
+.card .top {
+	padding: 20px;
+}
+.card .content {
+	min-height: 100px;
+}
+.card .top .title {
+	color: rgba(255,255,255,1.00);
+	font-size: 15.5px;
+}
+.image_button {
+	border: none;
+	background: none;
+	outline: none;
+}
+#project_card_menu {
+	margin: 20px 20px 25px 20px;
+}
+#project_card_menu_title {
+	color: rgba(38,38,38,0.75);
+}
+#project_card_menu_buttons {
+	float: right;
+	color: rgba(38,38,38,0.75);
+}
+#project_card_menu_buttons button {
+	margin-left:10px;
+}
+#project_edit {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.75);
+	z-index: 10;
+	display:none;
+}
+#project_edit_window {
+	margin:auto;
+	margin-top:100px;
+	top:32.5%;
+	width:80%;
+	height:65%;
+	background:rgba(255,255,255,1.00);
+	box-shadow: 0 6px 6px rgba(5,5,5,0.10);
+}
+#project_edit_window .top {
+	background: #607D8B;
 }

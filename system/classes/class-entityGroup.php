@@ -34,6 +34,15 @@ class EntityGroup {
 				return new EntityGroup($result['id'], $result['eventID'], $result['name'], $result['description']);
 	}
 	
+	static public function newEntityGroup($eventID, $name, $description) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('INSERT INTO entity_group(eventID, name, description) VALUES(:eventID, :name, :description)');
+				
+		if ($stmt->execute(array('eventID' => $eventID, 'name' => $name, 'description' => $description))) return true; else return false;
+	}
+	
 	public function getID() {
 		return $this->id;
 	}
@@ -50,5 +59,36 @@ class EntityGroup {
 		return $this->description;
 	}
 	
+	public function updateEntityGroupName($newName) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('UPDATE entity_group SET name = :newName WHERE id = :id');
+		
+		if ($stmt->execute(array('newName' => $newName, 'id' => $this->id))) {
+			if ($stmt->rowCount() >= 1) {
+				$this->name = $newName;
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public function updateEntityGroupDescription($newDescription) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare("UPDATE entity_group SET description = :newDescription WHERE id = :id");
+		
+		if ($stmt->execute(array('newDescription' => $newDescription, 'id' => $this->id))) {
+			if ($stmt->rowCount() >= 1) {
+				$this->description = $newDescription;
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
 ?>

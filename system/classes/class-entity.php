@@ -23,6 +23,30 @@ class Entity {
 				return new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
 	}
 	
+	static public function getEntityListByUserID($uid) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT entity.id, entity.entityGroupID, entity.name, entity.description FROM entity JOIN user_role_involvement ON entity.id = user_role_involvement.entityID WHERE user_role_involvement.uid = :uid');
+		$entityList = [];
+		
+		if($stmt->execute(array('uid' => $uid))) {
+			while ($result = $stmt->fetch())
+				$entityList[] = new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
+			
+			return $entityList;
+		} else return null;
+	}
+	
+	static public function newEntity($entityGroupID, $name, $description) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('INSERT INTO entity(entityGroupID, name, description) values(:entityGroupID, :name, :description)');
+		
+		if ($stmt->execute(array('entityGroupID' => $entityGroupID, 'name' => $name, 'description' => $description))) return true; else return false;
+	}
+	
 	public function getID() {
 		return $this->id;
 	}
@@ -49,7 +73,7 @@ class Entity {
 			if ($stmt->rowCount() >= 1) {
 				$this->description = $newDescription;
 				return true;
-			};
+			}
 		}
 		
 		return false;
