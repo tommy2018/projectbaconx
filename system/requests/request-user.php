@@ -13,6 +13,8 @@ class UserRequest {
 				return $this->signIn();
 			case 'signout':
 				return $this->signOut();
+			case 'isSignedIn':
+				return $this->isSignedIn();
 			case 'changePassword':
 				return $this->chnagePassword();
 			default:
@@ -39,6 +41,15 @@ class UserRequest {
 		$userSession->signOut();
 		
 		return array(true);
+	}
+	
+	private function isSignedIn() {
+		$userSession = UserSession::getInstance();
+		
+		if ($user = $userSession->isSignedIn())
+			return array(true, array('uid' => $user->getUID(), 'username' => $user->getUsername()));
+		else
+			return array(true, false);
 	}
 	
 	private function chnagePassword() {
