@@ -3,6 +3,7 @@
 $setting['core']['productName'] = 'Project Bacon X';
 $setting['core']['productVersion'] = 'Alpha 1.0';
 $setting['core']['sessionName'] = 'pbxSession';
+$setting['core']['applicationDirectory'] = '/projectbaconx/';
 
 /* Database settings */
 $setting['db']['username'] = 'root';
