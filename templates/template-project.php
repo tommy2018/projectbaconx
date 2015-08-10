@@ -1,4 +1,4 @@
-<?php include_once 'template-header.php'; ?>
+<?php if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php';?>
 
 <div id="main">
   <div class="container-fluid" id="main_frame">
@@ -17,7 +17,7 @@
                 <div id="project_information_card" class="card">
                   <div class="card_top"> <span class="card_title"><i class="fa fa-leaf"></i> INFORMATION<br>
                     </span> </div>
-                  <div class="content"> Supervisor: Luke <br>
+                  <div class="card_content"> Supervisor: Luke <br>
                     Description: Something something and something......</div>
                   <div class="bottom"> </div>
                 </div>
@@ -25,13 +25,13 @@
               <div class="col-lg-4">
                 <div id="media_card" class="card">
                   <div class="card_top"> <span class="card_title"><i class="fa fa-film"></i> MEDIA</span> </div>
-                  <div class="content"> </div>
+                  <div class="ccard_ontent"> </div>
                 </div>
               </div>
               <div class="col-lg-3">
                 <div id="group_members_card" class="card">
                   <div class="card_top"> <span class="card_title"><i class="fa fa-users"></i> GROUP MEMBERS</span> </div>
-                  <div class="content"> </div>
+                  <div class="card_content"> </div>
                 </div>
               </div>
             </div>

@@ -1,0 +1,121 @@
+@charset "UTF-8";
+/* CSS Document */
+#header {
+	background: #009688;
+	color: #FFFFFF;
+	padding: 25px;
+	box-shadow: 0 6px 6px rgba(5,5,5,0.10);
+	position: fixed;
+	height: 155px;
+	width: 100%;
+	top: 0;
+	z-index: 1;
+}
+#header_title {
+	font-size: 28px;
+}
+#header_menu ul {
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+	position: relative;
+	top: -7px;
+}
+#header_menu li {
+	display: inline;
+	margin-right: 14px;
+	font-size: 16px;
+	border-bottom: rgba(255,255,255,0.85) 3px solid;
+	color: rgba(255,255,255,0.85);
+	padding-bottom: 2px;
+}
+#header_menu li:hover {
+	color: rgba(255,255,255,1.00);
+	border-color: rgba(255,255,255,1.00);
+	cursor: pointer;
+}
+#header_menu_current_selection {
+	font-size: 30px;
+	font-weight: bold;
+}
+#header_user_account {
+	position: fixed;
+	right: 45px;
+	top: 30px;
+	text-align: center;
+	background: rgba(101,101,101,0.25);
+	padding: 10px 15px 10px 15px;
+	border-radius: 6px;
+	min-width: 100PX;
+}
+#header_user_account img {
+	width: 55px;
+}
+#header_user_account_username {
+	font-size: 16px;
+	display: inline-block;
+	margin-top: 5px;
+}
+#header_user_account_toggle_area {
+	cursor: pointer;
+}
+#signin {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.75);
+	z-index: 10;
+	display: none;
+}
+#signin {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.75);
+	z-index: 10;
+}
+#signin_window {
+	background: rgba(255,255,255,1.00);
+	width: 425px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -300px 0 0 -200px;
+	padding: 65px 40px 65px 40px;
+	position: relative;
+	box-shadow: 0 6px 6px rgba(5,5,5,0.10);
+	border-radius:4px;
+}
+#signin_title {
+	text-align: center;
+	font-size: 25px;
+	color: rgba(75,75,75,1.00);
+	display: inline-block;
+	width: 100%;
+}
+#signin .problem_link {
+	font-size: 13.5px;
+}
+#signin_error_message {
+	background: #DA5C5E;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 16px;
+	padding: 8px 0 8px 0;
+	margin-bottom: 18px;
+	display: none;
+}
+#signin_closs_button {
+	border: none;
+	background: none;
+	position: absolute;
+	right: 10px;
+	top: 15px;
+}
+#signin_window_close_button {
+	width: 20px;
+}

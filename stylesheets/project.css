@@ -12,18 +12,18 @@
 	padding: 20px;
 	background: url(../images/bg_cube.png) bottom center no-repeat rgba(255,255,255,1.00);
 }
-#project_information_card .top {
+#project_information_card .card_top {
 	background: #00BCD4;
 }
-#project_information_card .content {
+#project_information_card .card_content {
 	color: rgba(2,2,2,1.00);
 	font-size: 16px;
 	padding: 25px;
 }
-#group_members_card .top {
+#group_members_card .card_top {
 	background: #9E9E9E;
 }
-#media_card .top {
+#media_card .card_top {
 	background: #607D8B;
 }
 #project_card_menu {

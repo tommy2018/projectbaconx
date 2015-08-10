@@ -5,6 +5,8 @@ $template = new Template();
 $userSession = UserSession::getInstance();
 $user = $userSession->isSignedIn();
 
+/* USER PERMISSION TO BE CHECKED */
+
 if ($user) {
 	$template->setTitle('CONTROL PANEL');
 	$template->addScript('scripts/jquery-1.11.3.min.js');
@@ -15,12 +17,11 @@ if ($user) {
 	$template->addStylesheet('stylesheets/global.css');
 	$template->addStylesheet('stylesheets/header.css');	
 	$template->addStylesheet('stylesheets/control-panel.css');
-
-	$template->assign('applicationTitle', 'Project Bacon X');
+	
 	$template->assign('navPageTitle', 'CONTROL PANEL');
-	$template->assign('username', $user->getUsername());
+	$template->assign('user', $user);
 
 	$template->display('template-controlPanel');
 } else
-	$userSession->signIn('Tommy', 'password');
+	fatalError('You don\'t have the required permission to access the resource.', 403);
 ?>

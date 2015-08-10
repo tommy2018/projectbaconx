@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<base href="/">
 <title><?php if (isset($this->context['core']['title'])) echo($this->context['core']['title']); ?></title>
 <?php
 if (isset($this->context['core']['css']))

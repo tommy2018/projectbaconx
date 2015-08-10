@@ -13,7 +13,9 @@ function randomString($length = 15) {
 	return $string;
 }
 
-function fatalError($errorMsg) {
+function fatalError($errorMessage, $errorCode = 500) {
+	ob_clean();
+	http_response_code($errorCode);
 	include_once DOC_ROOT . 'templates/template-error.php';
 	die();
 }

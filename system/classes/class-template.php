@@ -9,6 +9,7 @@ class Template {
 			$this->context['core']['body'] = $file;
 		
 		global $setting;
+		$this->context['content']['applicationTitle'] = 'Project Bacon X';
 		include_once DOC_ROOT. 'templates/core/core.php';
 		} else fatalError('Template file not found');
 	}
