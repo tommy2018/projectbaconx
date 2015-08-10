@@ -26,7 +26,7 @@ class UserSession {
 	}
 	
 	public function signIn($username, $password) {
-		if ($temp = User::login($username, $password)) {
+		if ($temp = User::signIn($username, $password)) {
 			$this->user = $temp;
 			$this->setSessionData('uid', $this->user->getUid());
 			$this->setSessionData('securityToken', $this->user->getSecurityToken());

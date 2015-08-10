@@ -20,7 +20,7 @@ class User {
 		$this->securityToken = $securityToken;
 	}
 	
-	static public function login($username, $password) {
+	static public function signIn($username, $password) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
