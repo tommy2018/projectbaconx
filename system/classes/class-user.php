@@ -37,8 +37,6 @@ class User {
 				else
 					throw new PBXException('db-00');
 		} else throw new PBXException('db-00');
-		
-		return null;
 	}
 	
 	static public function getUserByUid($uid) {
@@ -51,40 +49,70 @@ class User {
 			if ($result = $stmt->fetch())
 				return new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
 		} else throw new PBXException('db-00');
-		
-		return null;
 	}
 	
 	static public function searchUserByUsername($username) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE username LIKE :username');
+		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE username LIKE :username LIMIT 5');
 		
-		$userList = [];
+		$users = [];
 		
-		if ($stmt->execute(array('username' => '%'.$username.'%'))) {
+		if ($stmt->execute(array('username' => $username.'%'))) {
 			while ($result = $stmt->fetch()) {
-				$userList[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+				$users[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
 			}
-			return $userList;
-		} else return null;
+			return $users;
+		} else throw new PBXException('db-00');
 	}
 	
 	static public function searchUserByEmail($email) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE email LIKE :email');
+		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE email LIKE :email LIMIT 5');
 		
-		$userList = [];
+		$users = [];
 		
-		if ($stmt->execute(array('email' => '%'.$email.'%'))) {
+		if ($stmt->execute(array('email' => $email.'%'))) {
 			while ($result = $stmt->fetch()) {
-				$userList[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+				$users[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
 			}
-			return $userList;
-		} else return null;
+			return $users;
+		} else throw new PBXException('db-00');
+	}
+	
+	static public function searchUserByFirstName($firstName) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE firstName LIKE :firstName LIMIT 5');
+		
+		$users = [];
+		
+		if ($stmt->execute(array('firstName' => $firstName.'%'))) {
+			while ($result = $stmt->fetch()) {
+				$users[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+			}
+			return $users;
+		} else throw new PBXException('db-00');
+	}
+	
+	static public function searchUserByLastName($lastName) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT uid, username, firstName, lastName, middleName, email, securityToken FROM user WHERE lastName LIKE :lastName LIMIT 5');
+		
+		$users = [];
+		
+		if ($stmt->execute(array('lastName' => $lastName.'%'))) {
+			while ($result = $stmt->fetch()) {
+				$users[] = new User($result['uid'], $result['username'], $result['lastName'], $result['firstName'], $result['middleName'], $result['email'], $result['securityToken']);
+			}
+			return $users;
+		} else throw new PBXException('db-00'); 
 	}
 	
 	static public function newUser($username, $password, $lastname, $firstname, $middlename, $email) {
@@ -95,7 +123,9 @@ class User {
 		
 		$stmt = $conn->prepare('INSERT INTO user(username, password, firstname, lastname, middlename, email) VALUES(:username, :password, :firstname, :lastname, :middlename, :email)');
 		
-		if ($stmt->execute(array('username' => $username, 'password' => $password, 'firstname' => $firstname, 'lastname' => $lastname, 'middlename' => $middlename, 'email' => $email))) return true; else return false;
+		if ($stmt->execute(array('username' => $username, 'password' => $password, 'firstname' => $firstname, 'lastname' => $lastname, 'middlename' => $middlename, 'email' => $email))) 
+			return true;
+		else throw new PBXException('db-00');
 	}
 	
 	public function changePassword($oldPassword, $newPassword) {
@@ -110,9 +140,25 @@ class User {
 		if ($stmt->execute(array('newPassword' => $newPassword, 'oldPassword' => $oldPassword, 'uid' => $this->uid))) {
 			if ($stmt->rowCount() >= 1)
 				return true;
-		}
+			else
+				return false;
+		} else throw new PBXException('db-00');
+	}
+	
+	public function changePasswordWithoutOldPassword($password) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
 		
-		return false;
+		$stmt = $conn->prepare('UPDATE user SET password = :password WHERE uid = :uid');
+
+		$newPassword = hashString($newPassword);
+		
+		if ($stmt->execute(array('password' => $password, 'uid' => $this->uid))) {
+			if ($stmt->rowCount() >= 1)
+				return true;
+			else
+				return false;
+		} else throw new PBXException('db-00');
 	}
 	
 	public function getUsername() {

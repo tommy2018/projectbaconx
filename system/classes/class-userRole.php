@@ -22,9 +22,8 @@ class UserRole {
 		if ($stmt->execute(array('entityGroupID' => $id))) {
 			while ($result = $stmt->fetch())
 				$groups[] =  new UserRole($result['rid'], $result['entityGroupID'], $result['name'], $result['description']);
-			
 			return $groups;
-		} else return null;
+		} else throw new PBXException('db-00');
 	}
 
 	static public function getUserAndRoleListByEntityID($id) {
@@ -37,9 +36,8 @@ class UserRole {
 		if ($stmt->execute(array('entityID' => $id))) {
 			while ($result = $stmt->fetch())
 				$list[] = array('firstName' => $result['firstName'], 'lastName' => $result['lastName'], 'middleName' => $result['middleName'], 'role' => $result['name']);
-			
 			return $list;
-		} else return null;
+		} else throw new PBXException('db-00');
 	}
 	
 	static public function newUserRole($entiyGroupID, $name, $description) {
@@ -48,7 +46,7 @@ class UserRole {
 		
 		$stmt = $conn->prepare('INSERT INTO user_role(entityGroupID, name, description) VALUES(:entityGroupID, :name, :description)');
 		
-		if ($stmt->execute(array('entityGroupID' => $entiyGroupID, 'name' => $name, 'description' => $description))) return true; else return false;
+		if ($stmt->execute(array('entityGroupID' => $entiyGroupID, 'name' => $name, 'description' => $description))) return true; else throw new PBXException('db-00');
 	}
 	
 	public function updateUserRoleDescription($newDescription) {
@@ -62,9 +60,9 @@ class UserRole {
 				$this->description = $newDescription;
 				return true;
 			}
-		}
-		
-		return false;
+			else 
+				return false;
+		} else throw new PBXException('db-00');
 	}
 	
 	public function updateAdminStatus($newAdminStatus) {
@@ -77,9 +75,8 @@ class UserRole {
 			if ($stmt->rowCount() >= 1) {
 				return true;
 			}
-		}
-		
-		return false;
+			else return false;
+		} else throw new PBXException('db-00');
 	}
 	
 	public function addUser($uid, $entityID) {
@@ -88,7 +85,7 @@ class UserRole {
 		
 		$stmt = $conn->prepare('INSERT INTO user_role_involvement(rid, entityID, uid) VALUES(:rid, :entityID, :uid)');
 		
-		if ($stmt->execute(array('rid' => $this->rid, 'entityID' => $entityID, 'uid' => $uid))) return true; else return false;
+		if ($stmt->execute(array('rid' => $this->rid, 'entityID' => $entityID, 'uid' => $uid))) return true; else throw new PBXException('db-00');
 	}
 }
 ?>

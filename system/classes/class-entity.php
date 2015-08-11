@@ -18,9 +18,10 @@ class Entity {
 		
 		$stmt = $conn->prepare('SELECT id, entityGroupID, name, description FROM entity WHERE id = :id');
 		
-		if ($stmt->execute(array('id' => $id)))
+		if ($stmt->execute(array('id' => $id))) {
 			if ($result = $stmt->fetch())
 				return new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
+		} else throw new PBXException('db-00');
 	}
 	
 	static public function getEntityListByUserID($uid) {
@@ -28,14 +29,13 @@ class Entity {
 		$conn = $db->connect();
 		
 		$stmt = $conn->prepare('SELECT entity.id, entity.entityGroupID, entity.name, entity.description FROM entity JOIN user_role_involvement ON entity.id = user_role_involvement.entityID WHERE user_role_involvement.uid = :uid');
-		$entityList = [];
+		$entities = [];
 		
 		if($stmt->execute(array('uid' => $uid))) {
 			while ($result = $stmt->fetch())
-				$entityList[] = new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
-			
-			return $entityList;
-		} else return null;
+				$entities[] = new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
+			return $entities;
+		} else throw new PBXException('db-00');
 	}
 	
 	static public function newEntity($entityGroupID, $name, $description) {
@@ -44,7 +44,7 @@ class Entity {
 		
 		$stmt = $conn->prepare('INSERT INTO entity(entityGroupID, name, description) values(:entityGroupID, :name, :description)');
 		
-		if ($stmt->execute(array('entityGroupID' => $entityGroupID, 'name' => $name, 'description' => $description))) return true; else return false;
+		if ($stmt->execute(array('entityGroupID' => $entityGroupID, 'name' => $name, 'description' => $description))) return true; else throw new PBXException('db-00');
 	}
 	
 	public function getID() {
@@ -73,10 +73,8 @@ class Entity {
 			if ($stmt->rowCount() >= 1) {
 				$this->description = $newDescription;
 				return true;
-			}
-		}
-		
-		return false;
+			} else return false;
+		} else throw new PBXException('db-00');
 	}
 }
 ?>

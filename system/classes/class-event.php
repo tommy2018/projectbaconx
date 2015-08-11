@@ -21,9 +21,10 @@ class Event {
 		
 		$stmt = $conn->prepare('SELECT * FROM event WHERE id = :id');
 		
-		if ($stmt->execute(array('id' => $id)))
+		if ($stmt->execute(array('id' => $id))) {
 			if ($result = $stmt->fetch())
 				return new Event($result['id'], $result['name'], $result['fromDate'], $result['toDate'], $result['published']);
+		} else throw new PBXException('db-00');
 	}
 
 	static public function getEvents($numbers, $offset = 0) {
@@ -33,21 +34,13 @@ class Event {
 		
 		$stmt = $conn->prepare('SELECT * FROM event');
 		
-		if ($stmt->execute())
-			while ($result = $stmt->fetch())
+		if ($stmt->execute()) {
+			while ($result = $stmt->fetch()) {
 				$events[] = new Event($result['id'], $result['name'], $result['fromDate'], $result['toDate'], $result['published']);
-		
-		return $events;
+				return $events;
+			}
+		} else throw new PBXException('db-00');
 	}
-	
-// 	static public function newEvent($name, $startDate, $endDate) {
-// 		$db = Database::getInstance();
-// 		$conn = $db->connect();
-		
-// 		$stmt = $conn->prepare('INSERT INTO event(name) VALUES(:name)');
-		
-// 		if ($stmt->execute(array('name' => $name))) return $conn->lastInsertId(); else null;
-// 	}
 	
 	static public function newEvent($name, $startDate, $endDate) {
 		$db = Database::getInstance();
@@ -55,7 +48,7 @@ class Event {
 	
 		$stmt = $conn->prepare('INSERT INTO event(name, fromDate, toDate) VALUES(:name, :startDate, :endDate)');
 	
-		if ($stmt->execute(array('name' => $name, 'startDate' => $startDate, 'endDate' => $endDate))) return true; else return false;
+		if ($stmt->execute(array('name' => $name, 'startDate' => $startDate, 'endDate' => $endDate))) return true; else throw new PBXException('db-00');
 	}
 	
 	public function getEventID() {
@@ -84,9 +77,10 @@ class Event {
 		
 		$stmt = $conn->prepare('SELECT count(id) FROM entity_group WHERE eventID = :eventId');
 		
-		if ($stmt->execute(array('eventId' => $this->eventID)))
+		if ($stmt->execute(array('eventId' => $this->eventID))) {
 			if ($result = $stmt->fetch())
 				return $result[0];
+		} else throw new PBXException('db-00');
 	}
 	
 	public function updateEventName($newName) {
@@ -99,10 +93,8 @@ class Event {
 			if ($stmt->rowCount() >= 1) {
 				$this->name = $newName;
 				return true;
-			}
-		}
-		
-		return false;
+			} else return false;
+		} else throw new PBXException('db-00');
 	}
 	
 	public function updateEventStartDate($newStartDate) {
@@ -115,10 +107,8 @@ class Event {
 			if ($stmt->rowCount() >= 1) {
 				$this->startDate = $newStartDate;
 				return true;
-			}
-		}
-		
-		return false;
+			} else return false;
+		} else throw new PBXException('db-00');
 	}
 	
 	public function updateEventEndDate($newEndDate) {
@@ -131,10 +121,8 @@ class Event {
 			if ($stmt->rowCount() >= 1) {
 				$this->endDate = $newEndDate;
 				return true;
-			}
-		}
-		
-		return false;
+			} else return false;
+		} else throw new PBXException('db-00');
 	}
 	
 	public function updateEntityPublishStatus($newPublishStatus) {
@@ -147,9 +135,8 @@ class Event {
 			if ($stmt->rowCount() >= 1) {
 				$this->published = $newPublishStatus;
 				return true;
-			}
-		}
-		
-		return false;
+			} else return false;
+		} throw new PBXException('db-00');
 	}
 }
+?>
