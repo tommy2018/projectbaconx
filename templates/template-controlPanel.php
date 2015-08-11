@@ -6,7 +6,8 @@ $(document).ready(function(e) {
 	sideMenuOptions.push(['#control_panel_option_dashboard', 'control-panel/project-group/dashboard.html']);
 	sideMenuOptions.push(['#control_panel_option_basic', 'control-panel/project-group/basic.html']);
 	sideMenuOptions.push(['#control_panel_option_project', 'control-panel/project-group/create-new-project.html']);
-	sideMenuOptions.push(['#control_panel_option_userAndGroup', 'control-panel/project-group/user.html']);
+	sideMenuOptions.push(['#control_panel_option_user', 'control-panel/project-group/create-new-user.html']);
+	sideMenuOptions.push(['#control_panel_option_role', 'control-panel/project-group/role.html']);
 	sideMenuOptions.push(['#control_panel_option_advance', 'control-panel/project-group/advance.html']);
 	
 	for (var i = 0; i < sideMenuOptions.length; i++) $(sideMenuOptions[i][0]).on('click', processSideMenuOption(sideMenuOptions[i][1]));
@@ -48,7 +49,8 @@ function processSideMenuOption(fileName) {
                       <li id="control_panel_option_dashboard"><i class="fa fa-tachometer control_panel_options_list_icon"></i> Dashboard</li>
                       <li id="control_panel_option_basic"><i class="fa fa-cog control_panel_options_list_icon"></i> Basic</li>
                       <li id="control_panel_option_project" class="control_panel_options_list_selected"><i class="fa fa-leaf control_panel_options_list_icon"></i> Project</li>
-                      <li id="control_panel_option_userAndGroup"><i class="fa fa-users control_panel_options_list_icon"></i> User &amp; Group</li>
+                      <li id="control_panel_option_user"><i class="fa fa-user control_panel_options_list_icon"></i> User</li>
+                      <li id="control_panel_option_role"><i class="fa fa-users control_panel_options_list_icon"></i> Role</li>
                       <li id="control_panel_option_advance"><i class="fa fa-user-secret control_panel_options_list_icon"></i> Advance</li>
                     </ul>
                   </div>
