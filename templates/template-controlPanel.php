@@ -18,6 +18,7 @@ function processSideMenuOption(fileName) {
 		var filePath = 'html/' + fileName;
 		$.ajax({
 			url: filePath,
+			cache: false,
 			success: function(data) {
 				$('#control_panel_setting_area').html(data);
 			}

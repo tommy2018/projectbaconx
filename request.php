@@ -17,6 +17,10 @@ switch ($module) {
 		include_once 'system/requests/request-event.php';
 		$request = new EventRequest();
 		break;
+	case 'control-panel':
+		include_once 'system/requests/request-controlPanel.php';
+		$request = new ControlPanelRequest();
+		break;
 	default:
 		response(array(false, 'Invalid request'));
 }

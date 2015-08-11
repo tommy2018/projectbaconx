@@ -5,12 +5,16 @@ class UserSession {
 	private static $self;
 	private $user;
 	
-	private function __construct() {
-		if ($uid = self::getSessionData('uid') && $securityToken = self::getSessionData('securityToken'))
-			if ($_SERVER['HTTP_USER_AGENT'] == $this->getSessionData('useragent'))
-				if ($user = User::getUserByUid($uid))
-					if ($user->getSecurityToken() == $securityToken)
-						$this->user = $user;
+	private function __construct() {	
+		$uid = self::getSessionData('uid');
+		$securityToken = self::getSessionData('securityToken');
+		
+		if ($uid && $securityToken) {
+			if ($_SERVER['HTTP_USER_AGENT'] == $this->getSessionData('useragent')) {
+				$user = User::getUserByUid($uid);
+				if ($user && $user->getSecurityToken() == $securityToken) $this->user = $user;
+			}
+		}
 	}
 	
 	public function __clone() {}
@@ -26,7 +30,9 @@ class UserSession {
 	}
 	
 	public function signIn($username, $password) {
-		if ($temp = User::signIn($username, $password)) {
+		$temp = User::signIn($username, $password);
+		
+		if ($temp) {
 			$this->user = $temp;
 			$this->setSessionData('uid', $this->user->getUid());
 			$this->setSessionData('securityToken', $this->user->getSecurityToken());
