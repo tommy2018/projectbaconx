@@ -12,15 +12,17 @@ class EntityGroup {
 		$this->description = $description;
 	}
 	
-	static public function getEntityGroupListByEventID($eventID) {
+	static public function getEntityGroupsByEventID($eventID) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('SELECT id, name FROM entity_group WHERE eventID = :eventID');
+		$stmt = $conn->prepare('SELECT id, eventID, name, description FROM entity_group WHERE eventID = :eventID');
+		$entityGroups = [];
 		
 		if ($stmt->execute(array('eventID' => $eventID))) {
-			if ($result = $stmt->fetchAll())
-				return $result;
+			while ($result = $stmt->fetch())
+				$entityGroups[] = new EntityGroup($result['id'], $result['eventID'], $result['name'], $result['description']);
+			return $entityGroups;
 		} else throw new PBXException('db-00');
 	}
 	
@@ -61,29 +63,29 @@ class EntityGroup {
 		return $this->description;
 	}
 	
-	public function updateEntityGroupName($newName) {
+	public function updateEntityGroupName($name) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE entity_group SET name = :newName WHERE id = :id');
+		$stmt = $conn->prepare('UPDATE entity_group SET name = :name WHERE id = :id');
 		
-		if ($stmt->execute(array('newName' => $newName, 'id' => $this->id))) {
+		if ($stmt->execute(array('name' => $name, 'id' => $this->id))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->name = $newName;
+				$this->name = $name;
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');
 	}
 	
-	public function updateEntityGroupDescription($newDescription) {
+	public function updateEntityGroupDescription($description) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare("UPDATE entity_group SET description = :newDescription WHERE id = :id");
+		$stmt = $conn->prepare("UPDATE entity_group SET description = :description WHERE id = :id");
 		
-		if ($stmt->execute(array('newDescription' => $newDescription, 'id' => $this->id))) {
+		if ($stmt->execute(array('description' => $description, 'id' => $this->id))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->description = $newDescription;
+				$this->description = $description;
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');

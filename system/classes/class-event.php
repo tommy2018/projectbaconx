@@ -1,4 +1,6 @@
 <?php
+include_once 'system/classes/class-entityGroup.php';
+
 class Event {
 	private $eventID;
 	private $name;
@@ -27,20 +29,19 @@ class Event {
 		} else throw new PBXException('db-00');
 	}
 
-	static public function getEvents($numbers, $offset = 0) {
-		$db = Database::getInstance();
-		$conn = $db->connect();
-		$events = [];
+// 	static public function getEvents($numbers, $offset = 0) {
+// 		$db = Database::getInstance();
+// 		$conn = $db->connect();
+// 		$events = [];
 		
-		$stmt = $conn->prepare('SELECT * FROM event');
+// 		$stmt = $conn->prepare('SELECT * FROM event');
 		
-		if ($stmt->execute()) {
-			while ($result = $stmt->fetch()) {
-				$events[] = new Event($result['id'], $result['name'], $result['fromDate'], $result['toDate'], $result['published']);
-				return $events;
-			}
-		} else throw new PBXException('db-00');
-	}
+// 		if ($stmt->execute()) {
+// 			while ($result = $stmt->fetch()) 
+// 				$events[] = new Event($result['id'], $result['name'], $result['fromDate'], $result['toDate'], $result['published']);
+// 			return $events;
+// 		} else throw new PBXException('db-00');
+// 	}
 	
 	static public function newEvent($name, $startDate, $endDate) {
 		$db = Database::getInstance();
@@ -71,6 +72,14 @@ class Event {
 		return $this->published;
 	}
 	
+	public function getEntityGroups() {
+		if (!$this->entityGroups) {
+			$this->entityGroups = EntityGroup::getEntityGroupsByEventID($this->eventID);
+		}
+		
+		return $this->entityGroups;
+	}
+	
 	public function getEntityGroupCount() {
 		$db = Database::getInstance();
 		$conn = $db->connect();
@@ -83,57 +92,65 @@ class Event {
 		} else throw new PBXException('db-00');
 	}
 	
-	public function updateEventName($newName) {
+	public function getEntityBrifeInfo() {
+		$this->getEntityGroups();
+		$entityGroups = [];
+		foreach ($this->entityGroups as $entityGroup)
+			$entityGroups[] = array('id' => $entityGroup->getID(), 'eventID' => $entityGroup->getEventID(), 'name' => $entityGroup->getName(), 'description' => $entityGroup->getDescription());
+		return array('eventID' => $this->eventID, 'name' => $this->name, 'startData' => $this->startDate, 'endDate' => $this->endDate, 'published' => $this->published, 'entityGroups' => $entityGroups);
+	}
+	
+	public function updateEventName($name) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE event SET name = :newName WHERE id = :eventID');
+		$stmt = $conn->prepare('UPDATE event SET name = :name WHERE id = :eventID');
 		
-		if ($stmt->execute(array('newName' => $newName, 'eventID' => $this->eventID))) {
+		if ($stmt->execute(array('name' => $name, 'eventID' => $this->eventID))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->name = $newName;
+				$this->name = $name;
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');
 	}
 	
-	public function updateEventStartDate($newStartDate) {
+	public function updateEventStartDate($startDate) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE event SET fromDate = :newStartDate WHERE id = :eventID');
+		$stmt = $conn->prepare('UPDATE event SET fromDate = :startDate WHERE id = :eventID');
 		
-		if ($stmt->execute(array('newStartDate' => $newStartDate, 'eventID' => $this->eventID))) {
+		if ($stmt->execute(array('startDate' => $startDate, 'eventID' => $this->eventID))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->startDate = $newStartDate;
+				$this->startDate = $startDate;
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');
 	}
 	
-	public function updateEventEndDate($newEndDate) {
+	public function updateEventEndDate($endDate) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE event SET toDate = :newEndDate WHERE id = :eventID');
+		$stmt = $conn->prepare('UPDATE event SET toDate = :endDate WHERE id = :eventID');
 		
-		if ($stmt->execute(array('newEndDate' => $newEndDate, 'eventID' => $this->eventID))) {
+		if ($stmt->execute(array('newEndDate' => $endDate, 'eventID' => $this->eventID))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->endDate = $newEndDate;
+				$this->endDate = $endDate;
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');
 	}
 	
-	public function updateEntityPublishStatus($newPublishStatus) {
+	public function updateEntityPublishStatus($publishStatus) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE event set published = :newPublishStatus WHERE id = :eventID');
+		$stmt = $conn->prepare('UPDATE event set published = :publishStatus WHERE id = :eventID');
 		
-		if ($stmt->execute(array('newPublishStatus' => $newPublishStatus, 'eventID' => $this->eventID))) {
+		if ($stmt->execute(array('publishStatus' => $publishStatus, 'eventID' => $this->eventID))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->published = $newPublishStatus;
+				$this->published = $publishStatus;
 				return true;
 			} else return false;
 		} throw new PBXException('db-00');

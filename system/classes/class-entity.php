@@ -24,7 +24,7 @@ class Entity {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function getEntityListByUserID($uid) {
+	static public function getEntitiesByUserID($uid) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -63,15 +63,15 @@ class Entity {
 		return $this->description;
 	}
 	
-	public function updateEntityDescription($newDescription) {
+	public function updateEntityDescription($description) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE entity SET description = :newDescription WHERE id = :id');
+		$stmt = $conn->prepare('UPDATE entity SET description = :description WHERE id = :id');
 		
-		if ($stmt->execute(array('newDescription' => $newDescription, 'id' => $this->id))) {
+		if ($stmt->execute(array('description' => $description, 'id' => $this->id))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->description = $newDescription;
+				$this->description = $description;
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');

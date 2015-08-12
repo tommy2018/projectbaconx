@@ -26,7 +26,7 @@ class UserRole {
 		} else throw new PBXException('db-00');
 	}
 
-	static public function getUserAndRoleListByEntityID($id) {
+	static public function getUsersAndRolesByEntityID($id) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -49,15 +49,15 @@ class UserRole {
 		if ($stmt->execute(array('entityGroupID' => $entiyGroupID, 'name' => $name, 'description' => $description))) return true; else throw new PBXException('db-00');
 	}
 	
-	public function updateUserRoleDescription($newDescription) {
+	public function updateUserRoleDescription($description) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
 		$stmt = $conn->prepare('UPDATE user_role SET description = :newDescription WHERE rid = :rid');
 		
-		if ($stmt->execute(array('newDescription' => $newDescription, 'rid' => $this->rid))) {
+		if ($stmt->execute(array('description' => $description, 'rid' => $this->rid))) {
 			if ($stmt->rowCount() >= 1) {
-				$this->description = $newDescription;
+				$this->description = $description;
 				return true;
 			}
 			else 
@@ -65,13 +65,13 @@ class UserRole {
 		} else throw new PBXException('db-00');
 	}
 	
-	public function updateAdminStatus($newAdminStatus) {
+	public function updateAdminStatus($adminStatus) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE user_role SET is_admin = :newAdminStatus WHERE rid = :rid');
+		$stmt = $conn->prepare('UPDATE user_role SET is_admin = :adminStatus WHERE rid = :rid');
 		
-		if ($stmt->execute(array('newAdminStatus' => $newAdminStatus, 'rid' => $this->rid))) {
+		if ($stmt->execute(array('adminStatus' => $adminStatus, 'rid' => $this->rid))) {
 			if ($stmt->rowCount() >= 1) {
 				return true;
 			}
