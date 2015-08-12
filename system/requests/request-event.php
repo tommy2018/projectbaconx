@@ -16,6 +16,8 @@ class EventRequest {
 				return $this->getEventList();
 			case 'getEntity':
 				return $this->getEntity();
+			case 'getEventBriefInfo':
+				return $this->getEventBriefInfo();
 			default:
 				return array(false, 'Invalid request');
 		}
@@ -50,6 +52,16 @@ class EventRequest {
 			return array(false, 'Can\'t retrieve the object you requested for.');
 	}
 	
-	
+	private function getEventBriefInfo() {
+		if (!isset($_POST['id'])) return array(false, 'Invalid request');
+		if (!preg_match('/^[1-9][0-9]*$/', $_POST['id'])) return array(false, 'Invalid request');
+		
+		$id = $_POST['id'];
+		
+		if ($event = Event::getEventByID($id))
+			return array(true, $event->getEventBrifeInfo());
+		else
+			return array(false, 'No such event');
+	}
 }
 ?>

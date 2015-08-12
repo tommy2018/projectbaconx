@@ -8,6 +8,9 @@ $(document).ready(function(e) {
 	var eventCardDropdownMenuCurrentItem = $('#event_card_dropdown_menu_toggle span');
 	var eventCardDropdownMenu = $('#event_card_dropdown_menu');
 	var eventCardDropdownMenuToggleArrow = $('#event_card_dropdown_menu_toggle_arrow');
+	var eventCardHeaderTitle = $('#event_card_header_title');
+	var eventCardHeaderLocation = $('#event_card_header_location');
+	var eventCardHeaderDate = $('#event_card_header_date');
 	
 	eventCardDropdownMenuToggle.on('click', function() {
 		if (eventCardDropdownMenu.is(":visible")) {
@@ -21,7 +24,80 @@ $(document).ready(function(e) {
 			eventCardDropdownMenuToggleArrow.addClass('fa-chevron-up');
 		}
 	});
+	
+	var formData = new FormData();
+	
+	formData.append('id', 1);
+	
+	$.ajax({
+		url: 'request.php?module=event&do=getEventBriefInfo',
+		dataType: 'json',
+		cache: false,
+		type: 'POST',
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function(data) {
+			if (data.success) {
+				eventCardHeaderTitle.html(data.result.name);
+				eventCardHeaderLocation.html('Location not available at the moment');
+				eventCardHeaderDate.html(data.result.startDate);
+			} else {
+				alert(data.errorMessage);
+			}
+		},
+		error: function(data) {
+			alert('error');
+		}
+	});
 });
+
+function newProjectCard(id, name, description, index) {
+	var a = $('#');
+	var projectCard = document.createElement('<div>');
+	projectCard.setAttribute('class', 'card');
+	
+	var entityCardTitle = document.createElement('<div>');
+	entityCardTitle.setAttribute('class', 'event_card_content_entity_card_title event_card_content_bg_color_1');
+	var titleContent = document.createTextNode(name);
+	entityCardTitle.appendChild(titleContent);
+	
+	var entityCardDescriptionArea = document.createElement('<div>');
+	entityCardDescriptionArea.setAttribute('class', 'event_card_content_entity_card_description_area');
+	
+	var entityCardDescriptionText = document.createElement('<div>');
+	entityCardDescriptionText.setAttribute('class', 'event_card_content_text_color_1');
+	var entityCardDescriptionTextContent = document.createTextNode('DESCRIPTION');
+	entityCardDescriptionText.appendChild(entityCardDescriptionTextContent);
+	
+	var horizontalLine = document.createElement('<hr>');
+	
+	var entityCardDescriptionContent = document.createElement('<div>');
+	var entityCardDescriptionContentText = document.createTextNode(description);
+	entityCardDescriptionContent.appendChild(entityCardDescriptionContentText);
+	
+	entityCardDescriptionArea.appendChild(entityCardDescriptionText);
+	entityCardDescriptionArea.appendChild(horizontalLine);
+	entityCardDescriptionArea.appendChild(entityCardDescriptionContent);
+	
+	var entityCardButtonArea = document.createElement('<div>');
+	entityCardButtonArea.setAttribute('class', 'event_card_content_entity_card_buttons_area');
+	
+	var entityCardButton = document.createElement('<button>');
+	entityCardButton.setAttribute('class', 'text_button event_card_content_text_color_1');
+	var entityCardButtonText = document.createTextNode('MORE');
+	entityCardButton.appendChild(entityCardButtonText);
+	
+	entityCardButtonArea.appendChild(entityCardButton);
+	
+	var entityCardClear = document.createElement('<div>');
+	entityCardClear.setAttribute('class', 'event_card_content_entity_card_clear');
+	
+	projectCard.appendChild(entityCardTitle);
+	projectCard.appendChild(entityCardDescriptionArea);
+	projectCard.appendChild(entityCardButtonArea);
+	projectCard.appendChild(entityCardClear);
+}
 </script>
 
 <div id="main">
@@ -30,9 +106,9 @@ $(document).ready(function(e) {
       <div class="col-lg-12">
         <div class="card" id="event_card">
           <div id="event_card_header">
-            <div id="event_card_header_content"> <span id="event_card_header_title">Computer Science &amp; Information Technology Trade Show 2015</span><br>
-              <span id="event_card_header_location">University of Wollongong UniHall</span><br>
-              <span id="event_card_header_date">18th November 2015</span> </div>
+            <div id="event_card_header_content"> <span id="event_card_header_title"></span><br>
+              <span id="event_card_header_location"></span><br>
+              <span id="event_card_header_date"></span> </div>
           </div>
           <div id="event_card_dropdown_menu_area"> <div id="event_card_dropdown_menu_toggle"><i class="fa fa-tags"></i>&nbsp;<span>Computer Science Undergraduate</span>&nbsp;<i class="fa fa-chevron-down" id="event_card_dropdown_menu_toggle_arrow"></i></div>
             <div id="event_card_dropdown_menu">
