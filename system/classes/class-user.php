@@ -51,7 +51,7 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function searchUserByUsername($username) {
+	static public function searchUsersByUsername($username) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -67,7 +67,7 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function searchUserByEmail($email) {
+	static public function searchUsersByEmail($email) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -83,7 +83,7 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function searchUserByFirstName($firstName) {
+	static public function searchUsersByFirstName($firstName) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -99,7 +99,7 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function searchUserByLastName($lastName) {
+	static public function searchUsersByLastName($lastName) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		

@@ -1,5 +1,5 @@
 <?php
-include_once 'system/config.inc.php';
+include_once 'config.inc.php';
 include_once 'system/functions/functions-common.php';
 include_once 'system/classes/class-database.php';
 include_once 'system/classes/class-userSession.php';
