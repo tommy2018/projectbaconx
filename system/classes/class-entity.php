@@ -31,9 +31,24 @@ class Entity {
 		$stmt = $conn->prepare('SELECT entity.id, entity.entityGroupID, entity.name, entity.description FROM entity JOIN user_role_involvement ON entity.id = user_role_involvement.entityID WHERE user_role_involvement.uid = :uid');
 		$entities = [];
 		
-		if($stmt->execute(array('uid' => $uid))) {
+		if ($stmt->execute(array('uid' => $uid))) {
 			while ($result = $stmt->fetch())
 				$entities[] = new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
+			return $entities;
+		} else throw new PBXException('db-00');
+	}
+	
+	static public function getEntitesByEntityGroupID($entityGroupID) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$stmt = $conn->prepare('SELECT * FROM entity WHERE entityGroupID = :entityGroupID');
+		$entities = [];
+		
+		if ($stmt->execute(array('entityGroupID' => $entityGroupID))) {
+			while ($result = $stmt->fetch()) {
+				$entities[] = new Entity($result['id'], $result['entityGroupID'], $result['name'], $result['description']);
+			}
 			return $entities;
 		} else throw new PBXException('db-00');
 	}
