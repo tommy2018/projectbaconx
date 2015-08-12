@@ -34,6 +34,11 @@
 	border-color: rgba(255,255,255,1.00);
 	cursor: pointer;
 }
+#header_menu a {
+	color: rgba(255,255,255,0.85);
+	outline : none;
+	text-decoration: none;
+}
 #header_menu_current_selection {
 	font-size: 30px;
 	font-weight: bold;

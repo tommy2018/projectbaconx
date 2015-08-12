@@ -4,22 +4,14 @@ include_once 'system/classes/class-template.php';
 $template = new Template();
 $userSession = UserSession::getInstance();
 $user = $userSession->isSignedIn();
+$pageID = 'HOME';
 
-$template->setTitle('HOME');
-$template->addScript('scripts/jquery-1.11.3.min.js');
-$template->addStylesheet('http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
-$template->addScript('http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js');
-$template->addStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
-$template->addStylesheet('stylesheets/global.css');
+include_once 'controller-global.inc.php';
 
-if ($user) {
-	$template->assign('user', $user);
-	$template->addScript('scripts/header.js');
-	$template->addStylesheet('stylesheets/header.css');
-} else {
-	$template->addScript('scripts/header-guest.js');
-	$template->addStylesheet('stylesheets/header-guest.css');
-}
+$template->addStylesheet('stylesheets/home/home.css');
+
+$template->assign('navPageTitle', $pageID);
+$template->setTitle($pageID);
 
 
 $template->display('template-home');

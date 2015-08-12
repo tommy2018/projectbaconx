@@ -34,7 +34,7 @@ $(document).ready(function(e) {
 				data: $(this).serialize(),
 				success: function(data) {
 					if (data.success)
-						window.location.replace('control-panel');
+						window.location.replace('home');
 					else {
 						signInErrorMessageText.html(data.errorMessage);
 						signInErrorMessageBox.show();

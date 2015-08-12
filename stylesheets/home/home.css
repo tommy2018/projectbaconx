@@ -1,0 +1,120 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	background: rgba(236,236,236,1.00);
+	font-family: sans-serif;
+}
+#main {
+	margin-top: 180px;
+	margin-bottom: 25px;
+}
+#main_frame {
+	margin: 0 10px 0 8px;
+}
+#event_card {
+	font-size: 24px;
+	background: #F6F6F6;
+}
+#event_card_header {
+	background: url(../../images/o1.jpg) bottom left;
+	padding: 40px;
+}
+#event_card_header_content {
+	text-align: center;
+	padding-top: 20px;
+	color: #FFFFFF;
+}
+#event_card_header_title {
+	font-size: 24px;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+#event_card_header_location {
+	font-size: 20px;
+}
+#event_card_header_date {
+	font-size: 18px;
+}
+#event_card_dropdown_menu_area {
+	padding: 35px 0 0 50px;
+	color: rgba(43,43,43,0.75);
+	cursor: pointer;
+}
+#event_card_dropdown_menu {
+	color: rgba(43,43,43,0.75);
+	cursor: pointer;
+	margin:0 50px 0 0;
+	display: none;
+}
+#event_card_dropdown_menu ul {
+	list-style-type: none;
+	font-size: 18px;
+	padding-top: 10px;
+}
+#event_card_dropdown_menu ul li {
+	margin:0;
+	padding: 8px 15px 8px 15px;
+}
+#event_card_dropdown_menu ul li:hover {
+	background:rgba(207,207,207,0.46);
+}
+#event_card_content_area {
+	min-height: 400px;
+}
+#event_card_content_frame {
+	padding: 40px 50px 50px 50px;
+}
+.event_card_content_entity_card_title {
+	padding: 25px;
+	color: rgba(255,255,255,1.00);
+	font-size: 24px;
+	min-height: 100px;
+}
+.event_card_content_entity_card_description_area {
+	padding: 25px;
+	font-size: 17px;
+}
+.event_card_content_entity_card_buttons_area {
+	padding: 5px 20px 20px 20px;
+	float: right;
+}
+.event_card_content_entity_card_clear {
+	clear: both;
+}
+.event_card_content_text_color_1 {
+	color: #448AFF;
+}
+.event_card_content_bg_color_1 {
+	background: #448AFF;
+}
+.event_card_content_text_color_2 {
+	color: #8BC34A;
+}
+.event_card_content_bg_color_2 {
+	background: #8BC34A;
+}
+.event_card_content_text_color_3 {
+	color: #24A581;
+}
+.event_card_content_bg_color_3 {
+	background: #24A581;
+}
+.event_card_content_text_color_4 {
+	color: #F9A825;
+}
+.event_card_content_bg_color_4 {
+	background: #F9A825;
+}
+.event_card_content_text_color_5 {
+	color: #D32F2F;
+}
+.event_card_content_bg_color_5 {
+	background: #D32F2F;
+}
+.event_card_content_text_color_6 {
+	color: #1565C0;
+}
+.event_card_content_bg_color_6 {
+	background: #1565C0;
+}
