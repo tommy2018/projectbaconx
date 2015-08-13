@@ -50,6 +50,29 @@ $(document).ready(function(e) {
 			alert('error');
 		}
 	});
+	
+	/* FOR DEMO ONLY */
+	var temp22 = $('.event_card_content_entity_card_buttons_area button');
+	temp22.on('click', function() {
+		window.location.href = '/project/1';
+	});
+	
+	$('#event_card_dropdown_menu li').on('click', function() {
+	
+		var current = $('#event_card_dropdown_menu_toggle span').html();
+		
+		$('#event_card_dropdown_menu_toggle span').html($(this).html());
+		$(this).html(current);
+		
+		if ($('#event_card_dropdown_menu_toggle span').html() == 'Computer Science Undergraduate') {
+			$('#event_card_content_area').show();
+			$('#empty_list').hide();
+		} else {
+			$('#event_card_content_area').hide();
+			$('#empty_list').show();
+		}	
+		
+	});
 });
 
 function newProjectCard(id, name, description, index) {
@@ -128,7 +151,7 @@ function newProjectCard(id, name, description, index) {
                     <div class="event_card_content_entity_card_description_area">
                       <div class="event_card_content_text_color_1">DESCRIPTION</div>
                       <hr>
-                      <div>Color in material design is inspired by bold hues juxtaposed with muted environments, deep shadows, and bright highlights. Material tak...</div>
+                      <div>Description not savailable at the moment.</div>
                     </div>
                     <div class="event_card_content_entity_card_buttons_area">
                       <button class="text_button event_card_content_text_color_1">MORE</button>
@@ -138,11 +161,11 @@ function newProjectCard(id, name, description, index) {
                 </div>
                 <div class="col-lg-6">
                   <div class="card" >
-                    <div class="event_card_content_entity_card_title event_card_content_bg_color_2">Tradeshow Management Toolkit</div>
+                    <div class="event_card_content_entity_card_title event_card_content_bg_color_2">Referee Appointment Optimiser</div>
                     <div class="event_card_content_entity_card_description_area">
                       <div class="event_card_content_text_color_2">DESCRIPTION</div>
                       <hr>
-                      <div>Color in material design is inspired by bold hues juxtaposed with muted environments, deep shadows, and bright highlights. Material tak...</div>
+                      <div>Testing...</div>
                     </div>
                     <div class="event_card_content_entity_card_buttons_area">
                       <button class="text_button event_card_content_text_color_2">MORE</button>
@@ -154,11 +177,11 @@ function newProjectCard(id, name, description, index) {
               <div class="row">
                 <div class="col-lg-6">
                   <div class="card" >
-                    <div class="event_card_content_entity_card_title event_card_content_bg_color_3">Tradeshow Management Toolkit</div>
+                    <div class="event_card_content_entity_card_title event_card_content_bg_color_3">Authors Aid</div>
                     <div class="event_card_content_entity_card_description_area">
                       <div class="event_card_content_text_color_3">DESCRIPTION</div>
                       <hr>
-                      <div>Color in material design is inspired by bold hues juxtaposed with muted environments, deep shadows, and bright highlights. Material tak...</div>
+                      <div>Nothing's here</div>
                     </div>
                     <div class="event_card_content_entity_card_buttons_area">
                       <button class="text_button event_card_content_text_color_3">MORE</button>
@@ -168,11 +191,11 @@ function newProjectCard(id, name, description, index) {
                 </div>
                 <div class="col-lg-6">
                   <div class="card" >
-                    <div class="event_card_content_entity_card_title event_card_content_bg_color_4">Tradeshow Management Toolkit</div>
+                    <div class="event_card_content_entity_card_title event_card_content_bg_color_4">URAC Pool Lane Management</div>
                     <div class="event_card_content_entity_card_description_area">
                       <div class="event_card_content_text_color_4">DESCRIPTION</div>
                       <hr>
-                      <div>Color in material design is inspired by bold hues juxtaposed with muted environments, deep shadows, and bright highlights. Material tak...</div>
+                      <div>Description not savailable at the moment.</div>
                     </div>
                     <div class="event_card_content_entity_card_buttons_area">
                       <button class="text_button event_card_content_text_color_4">MORE</button>
@@ -181,7 +204,7 @@ function newProjectCard(id, name, description, index) {
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" style="display:none;">
                 <div class="col-lg-6">
                   <div class="card" >
                     <div class="event_card_content_entity_card_title event_card_content_bg_color_5">Tradeshow Management Toolkit</div>
@@ -212,7 +235,20 @@ function newProjectCard(id, name, description, index) {
                 </div>
               </div>
             </div>
+            
+            
+            
+            
+
+            
+            
           </div>
+          
+          <div style="text-align:center; color:rgba(125,125,125,0.75); padding:100px; display:none;" id="empty_list">
+            EMPTY LIST
+          </div>
+                    
+          
         </div>
       </div>
     </div>

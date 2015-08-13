@@ -18,7 +18,7 @@
                   <div class="card_top"> <span class="card_title"><i class="fa fa-leaf"></i> INFORMATION<br>
                     </span> </div>
                   <div class="card_content"> Supervisor: Luke <br>
-                    Description: Something something and something......</div>
+                    Description: Description not savailable at the moment.</div>
                   <div class="bottom"> </div>
                 </div>
               </div>
