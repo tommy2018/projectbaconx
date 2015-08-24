@@ -1,80 +1,8 @@
 <?php
 if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php';
 ?>
-
 <script>
-$(document).ready(function(e) {
-    var eventCardDropdownMenuToggle = $('#event_card_dropdown_menu_toggle');
-	var eventCardDropdownMenuCurrentItem = $('#event_card_dropdown_menu_toggle span');
-	var eventCardDropdownMenu = $('#event_card_dropdown_menu');
-	var eventCardDropdownMenuToggleArrow = $('#event_card_dropdown_menu_toggle_arrow');
-	var eventCardHeaderTitle = $('#event_card_header_title');
-	var eventCardHeaderLocation = $('#event_card_header_location');
-	var eventCardHeaderDate = $('#event_card_header_date');
-	
-	eventCardDropdownMenuToggle.on('click', function() {
-		if (eventCardDropdownMenu.is(":visible")) {
-			eventCardDropdownMenu.hide();
-			
-			eventCardDropdownMenuToggleArrow.removeClass('fa-chevron-up');
-			eventCardDropdownMenuToggleArrow.addClass('fa-chevron-down');
-		} else {
-			eventCardDropdownMenu.show();
-			eventCardDropdownMenuToggleArrow.removeClass('fa-chevron-down');
-			eventCardDropdownMenuToggleArrow.addClass('fa-chevron-up');
-		}
-	});
-	
-	var formData = new FormData();
-	
-	formData.append('id', 1);
-	
-	$.ajax({
-		url: 'request.php?module=event&do=getEventBriefInfo',
-		dataType: 'json',
-		cache: false,
-		type: 'POST',
-		processData: false,
-		contentType: false,
-		data: formData,
-		success: function(data) {
-			if (data.success) {
-				eventCardHeaderTitle.html(data.result.name);
-				eventCardHeaderLocation.html('Location not available at the moment');
-				eventCardHeaderDate.html(data.result.startDate);
-			} else {
-				alert(data.errorMessage);
-			}
-		},
-		error: function(data) {
-			alert('error');
-		}
-	});
-	
-	/* FOR DEMO ONLY */
-	var temp22 = $('.event_card_content_entity_card_buttons_area button');
-	temp22.on('click', function() {
-		window.location.href = '/project/1';
-	});
-	
-	$('#event_card_dropdown_menu li').on('click', function() {
-	
-		var current = $('#event_card_dropdown_menu_toggle span').html();
-		
-		$('#event_card_dropdown_menu_toggle span').html($(this).html());
-		$(this).html(current);
-		
-		if ($('#event_card_dropdown_menu_toggle span').html() == 'Computer Science Undergraduate') {
-			$('#event_card_content_area').show();
-			$('#empty_list').hide();
-		} else {
-			$('#event_card_content_area').hide();
-			$('#empty_list').show();
-		}	
-		
-	});
-});
-
+/*$(document).ready(function(e) {
 function newProjectCard(id, name, description, index) {
 	var a = $('#');
 	var projectCard = document.createElement('<div>');
@@ -120,7 +48,7 @@ function newProjectCard(id, name, description, index) {
 	projectCard.appendChild(entityCardDescriptionArea);
 	projectCard.appendChild(entityCardButtonArea);
 	projectCard.appendChild(entityCardClear);
-}
+}*/
 </script>
 
 <div id="main">
@@ -133,18 +61,16 @@ function newProjectCard(id, name, description, index) {
               <span id="event_card_header_location"></span><br>
               <span id="event_card_header_date"></span> </div>
           </div>
-          <div id="event_card_dropdown_menu_area"> <div id="event_card_dropdown_menu_toggle"><i class="fa fa-tags"></i>&nbsp;<span>Computer Science Undergraduate</span>&nbsp;<i class="fa fa-chevron-down" id="event_card_dropdown_menu_toggle_arrow"></i></div>
+          <div id="event_card_dropdown_menu_area">
+            <div id="event_card_dropdown_menu_toggle"><i class="fa fa-tags"></i>&nbsp;<span></span>&nbsp;<i class="fa fa-chevron-down" id="event_card_dropdown_menu_toggle_arrow"></i></div>
             <div id="event_card_dropdown_menu">
               <ul>
-                <li>Information Technology Undergraduate</li>
-                <li>Computer Science Postgraduate</li>
-                <li>Information Technology Research</li>
               </ul>
             </div>
           </div>
           <div id="event_card_content_area">
             <div class="container-fluid" id="event_card_content_frame">
-              <div class="row">
+              <!--<div class="row">
                 <div class="col-lg-6">
                   <div class="card" >
                     <div class="event_card_content_entity_card_title event_card_content_bg_color_1">Tradeshow Management Toolkit</div>
@@ -233,22 +159,10 @@ function newProjectCard(id, name, description, index) {
                     <div class="event_card_content_entity_card_clear"></div>
                   </div>
                 </div>
-              </div>
+              </div>-->
             </div>
-            
-            
-            
-            
-
-            
-            
           </div>
-          
-          <div style="text-align:center; color:rgba(125,125,125,0.75); padding:100px; display:none;" id="empty_list">
-            EMPTY LIST
-          </div>
-                    
-          
+          <div style="text-align:center; color:rgba(125,125,125,0.75); padding:100px; display:none;" id="empty_list"> EMPTY LIST </div>
         </div>
       </div>
     </div>

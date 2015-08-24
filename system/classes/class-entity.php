@@ -38,7 +38,7 @@ class Entity {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function getEntitesByEntityGroupID($entityGroupID) {
+	static public function getEntitiesByEntityGroupID($entityGroupID) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		

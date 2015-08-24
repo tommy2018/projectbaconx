@@ -16,6 +16,8 @@ class EventRequest {
 				return $this->getEventList();
 			case 'getEntity':
 				return $this->getEntity();
+			case 'getEntities':
+				return $this->getEntities();
 			case 'getEventBriefInfo':
 				return $this->getEventBriefInfo();
 			default:
@@ -63,5 +65,21 @@ class EventRequest {
 		else
 			return array(false, 'No such event');
 	}
+	
+	private function getEntities() {
+		if (!isset($_POST['id'])) return array(false, 'Invalid request');
+		if (!preg_match('/^[1-9][0-9]*$/', $_POST['id'])) return array(false, 'Invalid request');
+		
+		$id = $_POST['id'];
+		
+		$result = [];
+		$entities = Entity::getEntitiesByEntityGroupID($id);
+		
+		foreach ($entities as $entity)
+			$result[] = array('id' => $entity->getID(), 'name' => $entity->getName(), 'description' => $entity->getDescription());
+		
+		return array(true, $result);
+	}
+	
 }
 ?>

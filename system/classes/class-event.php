@@ -99,7 +99,7 @@ class Event {
 		foreach ($this->entityGroups as $entityGroup)
 			$entityGroups[] = array('id' => $entityGroup->getID(), 'eventID' => $entityGroup->getEventID(), 'name' => $entityGroup->getName(), 'description' => $entityGroup->getDescription());
 		
-		return array('eventID' => $this->eventID, 'name' => $this->name, 'startDate' => $this->startDate, 'endDate' => $this->endDate, 'published' => $this->published, 'entityGroups' => $entityGroups);
+		return array('eventID' => $this->eventID, 'name' => $this->name, 'startDate' => $this->startDate, 'endDate' => $this->endDate, 'entityGroups' => $entityGroups);
 	}
 	
 	public function updateEventName($name) {
