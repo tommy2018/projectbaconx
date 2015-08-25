@@ -10,7 +10,7 @@
 #project_card {
 	font-size: 24px;
 	padding: 20px;
-	background: url(../images/bg_cube.png) bottom center no-repeat rgba(255,255,255,1.00);
+	background: url(../../images/bg_cube.png) bottom center no-repeat rgba(255,255,255,1.00);
 }
 #project_information_card .card_top {
 	background: #00BCD4;

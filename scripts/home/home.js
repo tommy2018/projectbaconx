@@ -128,7 +128,5 @@ function createNewEntityCard(colorCodeID, id, name, description) {
 	element = element + '<div>' + description + '</div> </div> <div class="event_card_content_entity_card_buttons_area">';
 	element = element + '<button class="text_button event_card_content_text_color_' + colorCodeID + '">MORE</button> </div> <div class="event_card_content_entity_card_clear"></div> </div> </div>';
 	
-	
-	
 	return element;
 }

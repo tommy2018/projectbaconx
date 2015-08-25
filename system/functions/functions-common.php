@@ -19,11 +19,4 @@ function fatalError($errorMessage, $errorCode = 500) {
 	include_once DOC_ROOT . 'templates/template-error.php';
 	die();
 }
-
-// function isNumber($number, $isStartWithZero) {
-// 	if ($isStartWithZero)
-// 		return preg_match('/^[0-9]*$/', $number);
-// 	else
-// 		return preg_match('/^[1-9][0-9]*$/', $subject);
-// }
 ?>

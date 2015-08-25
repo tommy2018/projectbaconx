@@ -1,14 +1,16 @@
-<?php if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php';?>
+<?php 
+if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php';
+$entity = $this->getVar('entity');
+?>
 
 <div id="main">
   <div class="container-fluid" id="main_frame">
     <div class="row">
       <div class="col-md-12">
         <div class="card" id="project_card">
-          <div id="project_card_menu"><i class="fa fa-cubes"></i> <span id="project_card_menu_title">Tradeshow Management Toolkit</span>
+          <div id="project_card_menu"><i class="fa fa-cubes"></i> <span id="project_card_menu_title"><?php echo $entity->getName(); ?></span>
             <div id="project_card_menu_buttons">
               <button type="button" id="project_edit_button" class="image_button"><i class="fa fa-pencil"></i></button>
-              <button type="button" id="project_refresh_button" class="image_button"><i class="fa fa-refresh"></i></button>
             </div>
           </div>
           <div class="container-fluid">
