@@ -72,9 +72,9 @@ class Entity {
 		
 		$stmt = $conn->prepare('SELECT entity_group_attribute.id, entity_group_attribute.name, entity_group_attribute_value.value FROM entity_group_attribute_value JOIN entity_group_attribute ON entity_group_attribute_value.entityGroupAttributeID = entity_group_attribute.id WHERE entity_group_attribute_value.entityID = :id');
 		if ($stmt->execute(array('id' => $id))) {
-			$entityInfo['addtionalAttributes'] = null;
+			$entityInfo['additionalAttributes'] = null;
 			while ($result = $stmt->fetch()) {
-				$entityInfo['addtionalAttributes'][] = array('attributeID' => $result[0], 'name' => $result[1], 'value' => $result[2]);
+				$entityInfo['additionalAttributes'][] = array('attributeID' => $result[0], 'name' => $result[1], 'value' => $result[2]);
 			}
 		} else throw new PBXException('db-00');
 		
