@@ -47,11 +47,11 @@
 	font-size: 16px;
 	padding: 25px;
 }
-#media_card_no_contents {
+#card_no_contents {
 	text-align:center;
 	font-size:24px;
 	color:rgba(125,125,125,0.75);
-	padding:50px;
+	padding:50px 20px 50px 20px;
 }
 #project_card_menu {
 	margin: 20px 20px 25px 20px;
@@ -65,4 +65,19 @@
 }
 #project_card_menu_buttons button {
 	margin-left: 10px;
+}
+.project_information_card_attribute {
+}
+.project_information_card_attribute_title {
+	color:#00BCD4;
+	display:block;
+	margin-bottom:15px;
+	font-size:18px;
+}
+.project_information_card_attribute_content {
+	font-size:18.5px;
+	display:block;
+	line-height:180%;
+	text-align:justify;
+	margin-bottom:50px;
 }
