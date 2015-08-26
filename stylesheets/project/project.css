@@ -10,7 +10,7 @@
 #project_card {
 	font-size: 24px;
 	padding: 20px;
-	background: url(../../images/bg_cube.png) bottom center no-repeat rgba(255,255,255,1.00);
+	background:  url(../../images/bg_cube.png) bottom center no-repeat fixed;
 }
 #project_information_card .card_top {
 	background: #00BCD4;
@@ -23,8 +23,35 @@
 #group_members_card .card_top {
 	background: #9E9E9E;
 }
+#group_members_card .card_content {
+	color: rgba(2,2,2,1.00);
+	font-size: 16px;
+	padding: 25px;
+}
+#group_members_card_member_list {
+	color:#494949;
+	font-size:16.5px;
+	padding: 0;
+	list-style-type: none;
+}
+#group_members_card_member_list li {
+	padding: 2px 0 2px 10px;
+}
 #media_card .card_top {
 	background: #607D8B;
+}
+#media_card {
+}
+#media_card .card_content {
+	color: rgba(2,2,2,1.00);
+	font-size: 16px;
+	padding: 25px;
+}
+#media_card_no_contents {
+	text-align:center;
+	font-size:24px;
+	color:rgba(125,125,125,0.75);
+	padding:50px;
 }
 #project_card_menu {
 	margin: 20px 20px 25px 20px;
