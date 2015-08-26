@@ -101,7 +101,7 @@ function getEntities(id) {
 					var colorCodeIndex = 1;
 					var result = '';
 					
-					for (var i = 0 ; i < data.result.length; i++) {
+					for (var i = 0 ; i < data.result.length && i < 6; i++) {
 						if ((i + 1) % 2 == 0)
 							result = result + createNewEntityCard(colorCodeIndex++, data.result[i].id, data.result[i].name, data.result[i].description) + '</div>';
 						else
@@ -123,9 +123,11 @@ function getEntities(id) {
 function createNewEntityCard(colorCodeID, id, name, description) {
 	var element;
 	
+	if (description == null) description = 'No description available at the moment.';
+	
 	element = '<div class="col-lg-6"> <div class="card"> <div class="event_card_content_entity_card_title event_card_content_bg_color_' + colorCodeID + '">' + name + '</div>';
 	element = element + '<div class="event_card_content_entity_card_description_area"> <div class="event_card_content_text_color_' + colorCodeID + '">DESCRIPTION</div> <hr>';
-	element = element + '<div>' + description + '</div> </div> <div class="event_card_content_entity_card_buttons_area">';
+	element = element + '<div>' + description  + '</div> </div> <div class="event_card_content_entity_card_buttons_area">';
 	element = element + '<button class="text_button event_card_content_text_color_' + colorCodeID + '">MORE</button> </div> <div class="event_card_content_entity_card_clear"></div> </div> </div>';
 	
 	return element;
