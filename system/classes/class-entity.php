@@ -38,7 +38,7 @@ class Entity {
 		} else throw new PBXException('db-00');
 	}
 	
-	static public function getEntitiesByEntityGroupID($entityGroupID) {
+	static public function getEntitesByEntityGroupID($entityGroupID) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
@@ -51,6 +51,41 @@ class Entity {
 			}
 			return $entities;
 		} else throw new PBXException('db-00');
+	}
+	
+	static public function getEntityInfoByID($id) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		
+		$entityInfo = [];
+		
+		$stmt = $conn->prepare('SELECT entity.id, entity.name, entity.description, entity.entityGroupID, entity_group.name FROM entity JOIN entity_group ON entity.entityGroupID = entity_group.id WHERE entity.id = :id');
+		if ($stmt->execute(array('id' => $id))) {
+			if ($result = $stmt->fetch()) {
+				$entityInfo['basicInfo'] = array('id' => $result[0], 'name' => $result[1], 'description' => $result[2]);
+				$entityInfo['entityGroup'] = array('id' => $result[3], 'name' => $result[4]);
+			} else {
+				return null;
+			}
+		} else throw new PBXException('db-00');
+		
+		$stmt = $conn->prepare('SELECT entity_group_attribute.id, entity_group_attribute.name, entity_group_attribute_value.value FROM entity_group_attribute_value JOIN entity_group_attribute ON entity_group_attribute_value.entityGroupAttributeID = entity_group_attribute.id WHERE entity_group_attribute_value.entityID = :id');
+		if ($stmt->execute(array('id' => $id))) {
+			$entityInfo['addtionalAttribute'] = null;
+			while ($result = $stmt->fetch()) {
+				$entityInfo['addtionalAttribute'][] = array('attributeID' => $result[0], 'name' => $result[1], 'value' => $result[2]);
+			}
+		} else throw new PBXException('db-00');
+		
+		$stmt = $conn->prepare('SELECT user.uid, user.username, user.firstname, user.middlename, user.lastname, user.email, user_role.rid, user_role.name FROM user_role_involvement JOIN (user_role, user) ON (user_role.rid = user_role_involvement.rid and user_role_involvement.uid = user.uid) WHERE user_role_involvement.entityID = :id');
+		if ($stmt->execute(array('id' => $id))){
+			$entityInfo['user'] = null;
+			while ($result = $stmt->fetch()) {
+				$entityInfo['user'][] = array('uid' => $result[0], 'username' => $result[1], 'fullname' => $result[2].($result[3]==null?'':' '.$result[3]).' '.$result[4], 'email' => $result[5], 'role' => array('rid' => $result[6], 'name' => $result[7]));
+			}
+		} else throw new PBXException('db-00');
+		
+		return $entityInfo;
 	}
 	
 	static public function newEntity($entityGroupID, $name, $description) {
