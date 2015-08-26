@@ -59,11 +59,12 @@ class Entity {
 		
 		$entityInfo = [];
 		
-		$stmt = $conn->prepare('SELECT entity.id, entity.name, entity.description, entity.entityGroupID, entity_group.name FROM entity JOIN entity_group ON entity.entityGroupID = entity_group.id WHERE entity.id = :id');
+		$stmt = $conn->prepare('SELECT entity.id, entity.name, entity.description, entity.entityGroupID, entity_group.name, event.id, event.name, event.fromDate, event.toDate FROM entity JOIN entity_group ON entity.entityGroupID = entity_group.id JOIN event ON entity_group.eventID = event.id WHERE entity.id = :id');
 		if ($stmt->execute(array('id' => $id))) {
 			if ($result = $stmt->fetch()) {
 				$entityInfo['basicInfo'] = array('id' => $result[0], 'name' => $result[1], 'description' => $result[2]);
 				$entityInfo['entityGroup'] = array('id' => $result[3], 'name' => $result[4]);
+				$entityInfo['event'] = array('id' => $result[5], 'name' => $result[6], 'fromDate' => $result[7], 'toDate' => $result[8]);
 			} else {
 				return null;
 			}
@@ -79,9 +80,9 @@ class Entity {
 		
 		$stmt = $conn->prepare('SELECT user.uid, user.username, user.firstname, user.middlename, user.lastname, user.email, user_role.rid, user_role.name FROM user_role_involvement JOIN (user_role, user) ON (user_role.rid = user_role_involvement.rid and user_role_involvement.uid = user.uid) WHERE user_role_involvement.entityID = :id');
 		if ($stmt->execute(array('id' => $id))){
-			$entityInfo['user'] = null;
+			$entityInfo['users'] = null;
 			while ($result = $stmt->fetch()) {
-				$entityInfo['user'][] = array('uid' => $result[0], 'username' => $result[1], 'fullname' => $result[2].($result[3]==null?'':' '.$result[3]).' '.$result[4], 'email' => $result[5], 'role' => array('rid' => $result[6], 'name' => $result[7]));
+				$entityInfo['users'][] = array('uid' => $result[0], 'username' => $result[1], 'fullname' => $result[2].($result[3]==null?'':' '.$result[3]).' '.$result[4], 'email' => $result[5], 'role' => array('rid' => $result[6], 'name' => $result[7]));
 			}
 		} else throw new PBXException('db-00');
 		
