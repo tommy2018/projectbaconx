@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Example of Twitter Typeahead</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script  type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/bloodhound.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+var users = new Bloodhound({
+	queryTokenizer: Bloodhound.tokenizers.whitespace,
+	datumTokenizer: Bloodhound.tokenizers.whitespace,
+	limit: 10,
+	remote: {
+		url: 'ta.php?query=%QUERY',
+		wildcard: '%QUERY',
+	}
+});
+
+
+$('#the-basics .typeahead').typeahead(null, {
+	source: users,
+	templates: {
+		notFound: 'Not found',
+		pending: 'Searching...',
+    	suggestion: function(data){
+			return '<div>UID: ' + data.uid + '<br>Name: ' + data.fullName + '<br>Email:' + data.email + '<hr></div>';
+		}
+	}
+});
+
+}); 
+</script>
+</head>
+<body>
+<div id="the-basics">
+  <input class="typeahead" type="text" placeholder="UID / Name / Username / Email address">
+</div>
+</body>
+</html>

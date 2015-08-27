@@ -1,6 +1,6 @@
 <?php 
 if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php';
-$info= $this->getVar('info');
+if (!$info = $this->getVar('info')) fatalError('Unexpected error occurred when rendering the page.');
 ?>
 
 <div id="main">
@@ -25,9 +25,7 @@ $info= $this->getVar('info');
                           <hr>
                           <div style="padding:20px 15px 0 15px;">
                             <div class="project_information_card_attribute"> <span class="project_information_card_attribute_title">DESCRIPTION <i class="fa fa-chevron-up"></i></span> <span class="project_information_card_attribute_content">
-                              <?php 
-							 if ($info['basicInfo']['description']) echo $info['basicInfo']['description']; else echo 'No description available at the moment.';
-							 ?>
+                              <?php if ($info['basicInfo']['description']) echo $info['basicInfo']['description']; else echo 'No description available at the moment.'; ?>
                               </span>
                               <?php if ($info['additionalAttributes']) echo '<hr>'; ?>
                             </div>
@@ -66,19 +64,19 @@ $info= $this->getVar('info');
                 <div id="group_members_card" class="card">
                   <div class="card_top"> <span class="card_title"><i class="fa fa-users"></i> GROUP MEMBERS</span> </div>
                   <div class="card_content">
-                    <ul id="group_members_card_member_list">
+                    <div id="group_members_card_member_list">
                       <?php
 						if ($info['users']) {
 							$count = count($info['users']);
 							for ($i = 0; $i < $count; $i++) {
-								echo '<li>' . $info['users'][$i]['fullname'] . '<br><span style="color:grey; font-size:14px;">' . $info['users'][$i]['role']['name'] . '</span></li>';
+								echo '<div class="group_members_card_member_list_item">' . $info['users'][$i]['fullname'] . '<br><span class="group_members_card_member_list_item_role">' . $info['users'][$i]['role']['name'] . '</span></div>';
 								if ($i < $count - 1) echo '<hr>';
 							}
 						} else {
 							echo '<div id="card_no_contents">NO INFORMATION AVAILABLE</div>';
 						}
 						?>
-                    </ul>
+                    </div>
                   </div>
                 </div>
               </div>
