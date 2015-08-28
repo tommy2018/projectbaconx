@@ -1,6 +1,8 @@
 <?php 
 include_once 'global.inc.php';
 
+if (!isset($_GET['query'])) die();
+
 $db = Database::getInstance()->connect();
 $result = [];
 $query = $_GET['query'];

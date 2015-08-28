@@ -11,6 +11,7 @@ $pageID = 'CONTROL PANEL';
 if ($user) {
 	include_once 'controller-global.inc.php';
 	
+	$template->addScript('scripts/control-panel/control-panel.js');
 	$template->addStylesheet('stylesheets/control-panel/control-panel.css');
 	
 	$template->setTitle($pageID );

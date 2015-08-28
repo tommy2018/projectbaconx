@@ -14,25 +14,48 @@ body {
 #control_panel_card .card_top {
 	background: #8BC34A;
 }
-#control_panel_options_list {
+#control_panel_options_list_area {
 	padding: 20px;
 }
-#control_panel_options_list ul {
+#control_panel_options_list {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
 	font-size: 18px;
 	color: #616161;
 }
-#control_panel_options_list li {
+.control_panel_options_list_item {
 	padding: 20px 0 20px 25px;
 }
-#control_panel_options_list li:hover {
+.control_panel_options_list_item:hover {
 	cursor: pointer;
 	background: #F8F8F8;
 }
 .control_panel_options_list_selected {
 	background: #EAEAEA !important;
+}
+.control_panel_sub_option_list_area {
+}
+.control_panel_sub_option_list_title {
+	color: #00838F;
+	font-size: 22px;
+}
+.control_panel_sub_option_list {
+	padding: 10px 20px 20px 10px;
+	font-size: 22px;
+}
+.control_panel_sub_option_list_item {
+	padding: 5px 0 5px 0px;
+	color: #616161;
+	font-size:20px;
+}
+.control_panel_sub_option_list_item i {
+	width: 65px;
+	font-size: 26px;
+}
+.control_panel_sub_option_list_item:hover {
+	background: #F8F8F8;
+	cursor:pointer;
 }
 #control_panel_setting_area {
 	padding: 35px 20px 20px 30px;
@@ -70,7 +93,6 @@ body {
 	color: #F44336;
 }
 .control_panel_options_list_icon {
-	color: #00838F;
 	margin-right: 10px;
 	width: 22px;
 }
@@ -136,5 +158,5 @@ body {
 	padding: 25px;
 }
 #control_panel_frame {
-	padding:0;
+	padding: 0;
 }
