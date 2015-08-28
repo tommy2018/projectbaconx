@@ -58,7 +58,7 @@ body {
 	cursor:pointer;
 }
 #control_panel_setting_area {
-	padding: 35px 20px 20px 30px;
+	padding: 35px 20px 20px 15px;
 }
 .control_panel_title {
 	color: #00838F;
@@ -96,23 +96,23 @@ body {
 	margin-right: 10px;
 	width: 22px;
 }
-.control_panel_menu {
+#control_panel_menu_toggle {
 	cursor: pointer;
 }
-.control_panel_menu_dropdown {
+#control_panel_menu_dropdown {
 	margin-top: 10px;
 	font-size: 16px;
+	display:none;
 }
-.control_panel_menu_dropdown ul {
+#control_panel_menu_dropdown ul {
 	list-style-type: none;
-	margin: 0;
 	padding: 0 0 0 10px;
 }
-.control_panel_menu_dropdown li:hover {
+#control_panel_menu_dropdown li:hover {
 	cursor: pointer;
 	background: rgba(255,255,255,0.15);
 }
-.control_panel_menu_dropdown li {
+#control_panel_menu_dropdown li {
 	padding: 5px 0 5px 15px;
 }
 .control_panel_sub_panel {
