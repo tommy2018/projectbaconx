@@ -16,7 +16,7 @@ class UserRequest {
 			case 'is-signed-in':
 				return $this->isSignedIn();
 			case 'change-password':
-				return $this->chnagePassword();
+				return $this->changePassword();
 			case 'is-username-used':
 				return $this->isUsernameUsed();
 			case 'change-email':
@@ -56,17 +56,23 @@ class UserRequest {
 			return array(true, false);
 	}
 	
-	private function chnagePassword() {
+	private function changePassword() {
 		$userSession = UserSession::getInstance();
 		
 		if (!$user = $userSession->isSignedIn()) return array(false, 'Invalid request');
-		if (!isset($_POST['password'])) return array(false, 'Invalid request');
+		if (!isset($_POST['oldPassword'])) return array(false, 'Invalid request');
+		if (!isset($_POST['newPassword'])) return array(false, 'Invalid request');
+		if (!isset($_POST['confirmNewPassword'])) return array(false, 'Invalid request');
 		
-		$password = $_POST['password'];
+		$oldPassword = $_POST['oldPassword'];
+		$newPassword = $_POST['newPassword'];
+		$confirmNewPassword = $_POST['confirmNewPassword'];
 		
-		if (!$user->isPasswordMatched($password)) return array(false, 'Password mismatch');
 		
-		if ($user->changePassword($password))
+		if (!$user->isPasswordMatched($oldPassword)) return array(false, 'Password mismatch');
+		if ($newPassword != $confirmNewPassword) return array(false, 'two new passwords different');
+		
+		if ($user->changePassword($newPassword))
 			return array(true); 
 		else
 			return array(false, 'Unchange password');
