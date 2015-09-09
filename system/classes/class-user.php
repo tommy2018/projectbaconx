@@ -159,7 +159,7 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 	
-	public function isPasswordMatch($password) {
+	public function isPasswordMatched($password) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
