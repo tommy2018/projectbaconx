@@ -1,4 +1,6 @@
 <?php
+require_once 'system/classes/class-user.php';
+
 class UserSession {
 	private static $self;
 	private $user;
