@@ -1,5 +1,5 @@
 <?php
-include_once 'global.inc.php';
+require_once 'global.inc.php';
 
 if (!isset($_GET['module'])) response(array(false, 'Invalid request'));
 
@@ -10,15 +10,19 @@ $request = null;
 
 switch ($module) {
 	case 'user':
-		include_once 'system/requests/request-user.php';
+		require_once 'system/requests/request-user.php';
 		$request = new UserRequest();
 		break;
 	case 'event':
-		include_once 'system/requests/request-event.php';
+		require_once 'system/requests/request-event.php';
 		$request = new EventRequest();
 		break;
+	case 'entity':
+		require_once 'system/requests/request-entity.php';
+		$request = new EntityRequest();
+		break;
 	case 'control-panel':
-		include_once 'system/requests/request-controlPanel.php';
+		require_once 'system/requests/request-controlPanel.php';
 		$request = new ControlPanelRequest();
 		break;
 	default:

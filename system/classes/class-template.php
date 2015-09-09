@@ -9,7 +9,7 @@ class Template {
 			$this->context['core']['body'] = $file;
 		
 		global $setting;
-		$this->context['content']['applicationTitle'] = 'Project Bacon X';
+		$this->context['content']['applicationTitle'] = 'eShow Event Management System';
 		include_once DOC_ROOT. 'templates/core/core.php';
 		} else fatalError('Template file not found');
 	}

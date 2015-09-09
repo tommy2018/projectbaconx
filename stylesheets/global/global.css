@@ -1,5 +1,8 @@
 @charset "UTF-8";
 /* CSS Document */
+body {
+	font-family: sans-serif;
+}
 .image_button {
 	border: none;
 	background: none;
@@ -30,4 +33,10 @@
 .card .card_top .card_title {
 	color: rgba(255,255,255,1.00);
 	font-size: 15.5px;
+}
+.color_blue {
+	color: #2196F3;
+}
+.color_red {
+	color: #F44336;
 }

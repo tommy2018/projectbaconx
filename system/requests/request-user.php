@@ -17,6 +17,8 @@ class UserRequest {
 				return $this->isSignedIn();
 			case 'changePassword':
 				return $this->chnagePassword();
+			case 'is-username-used':
+				return $this->isUsernameUsed();
 			default:
 				return array(false, 'Invalid request');
 		}
@@ -66,6 +68,12 @@ class UserRequest {
 			return array(true); 
 		else
 			return array(false, 'Unable to change your password, please check the old password you entered is correct.');
+	}
+	
+	private function isUsernameUsed() {
+		if (!isset($_POST['username'])) return array(false, 'Invalid request');
+		
+		$username = $_POST['username'];
 	}
 }
 ?>

@@ -11,12 +11,12 @@ var eventCardHeaderDate;
 var eventCardContentFrame;
 
 $(document).ready(function(e) {
-	setControls();
+	initControls();
 	setListeners();
 	getEventInfo(1);
 });
 
-function setControls() {
+function initControls() {
 	eventCardDropdownMenuToggle = $('#event_card_dropdown_menu_toggle');
 	eventCardDropdownMenuCurrentItem = $('#event_card_dropdown_menu_toggle span');
 	eventCardDropdownMenu = $('#event_card_dropdown_menu');
@@ -70,7 +70,7 @@ function getEventInfo(id) {
 					eventCardDropdownMenuCurrentItem.html(data.result.entityGroups[0].name);
 					getEntities(data.result.entityGroups[0].id);
 					
-					for (var i = 1; i < data.result.entityGroups.length; i++)
+					for (var i = 0; i < data.result.entityGroups.length; i++)
 						eventCardDropdownMenuList.append('<li data-id="'  + data.result.entityGroups[i].id + '">' + data.result.entityGroups[i].name + '</li>');
 				}
 			} else {
