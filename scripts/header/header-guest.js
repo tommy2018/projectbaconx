@@ -29,7 +29,7 @@ $(document).ready(function(e) {
 		} else {
 			$.ajax({
 				type: 'POST',
-				url: 'request.php?module=user&do=signin',
+				url: 'request.php?module=user&do=sign-in',
 				dataType: 'json',
 				data: $(this).serialize(),
 				success: function(data) {

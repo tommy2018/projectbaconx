@@ -3,7 +3,7 @@ $(document).ready(function(e) {
     $('#header_user_account_dropdown_signout_button').on('click', function() {
 		$.ajax({
 			type: 'GET',
-			url: 'request.php?module=user&do=signout',
+			url: 'request.php?module=user&do=sign-out',
 			dataType: 'json',
 			success: function(data) {
 				if (data.success)

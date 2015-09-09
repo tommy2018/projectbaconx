@@ -7,12 +7,13 @@ $userSession = UserSession::getInstance();
 $user = $userSession->isSignedIn();
 $pageID = 'PROFILE';
 
-/* Include controller-global.inc.php */
-require_once 'controller-global.inc.php';
+if ($user) {
+	require_once 'controller-global.inc.php';
 
-/* Set-up the template */
-$template->assign('navPageTitle', $pageID);
-$template->setTitle($pageID);
+	$template->assign('navPageTitle', $pageID);
+	$template->setTitle($pageID);
 
-$template->display('template-profile');
+	$template->display('template-profile');
+} else
+	fatalError('You don\'t have the required permission to access the resource.', 403);
 ?>

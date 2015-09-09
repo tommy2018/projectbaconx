@@ -6,6 +6,7 @@ include_once 'system/classes/class-userSession.php';
 include_once 'system/classes/class-pbxException.php';
 include_once 'system/constants/constant-system.php';
 
+define('DOC_ROOT', __DIR__ . DIRECTORY_SEPARATOR);
 session_name($setting['core']['sessionName']);
 session_start();
 ?>

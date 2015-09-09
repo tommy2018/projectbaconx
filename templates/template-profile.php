@@ -121,6 +121,7 @@ $(document).ready(function(e) {
 	
 	editEmailForm.on('submit', function(e) {
 		e.preventDefault();
+		updateEmail(this);
 	});
 	
 	editPasswordForm.on('submit', function(e) {
@@ -128,26 +129,30 @@ $(document).ready(function(e) {
 	});
 });
 
-function updateEmail() {
+function updateEmail(form) {
 	$.ajax({
 		type: 'POST',
-		url: 'request.php?module=user&do=change-password',
+		url: 'request.php?module=user&do=change-email',
 		dataType: 'json',
-		data: $(this).serialize(),
+		data: $(form).serialize(),
+		beforeSend: function() {
+			editEmailFormButtonArea.hide();
+		},
 		success: function(data) {
-			if (data.success)
-				window.location.replace('home');
-			else {
-				signInErrorMessageText.html(data.errorMessage);
-				signInErrorMessageBox.show();
-				signInFormPasswordTextBox.val('');
-				signInForm[0].reset();
-				signInFormUsernameTextBox.focus();
+			if (data.success) {
+				editEmailArea.hide();
+				editEmailForm[0].reset();
+				currentEmailArea.show();
+				
+			} else {
+				alert(data.errorMessage);
 			}
 		},
 		error: function() {
-			signInErrorMessageText.html('Communication error.');
-			signInErrorMessageBox.show();
+			alert('Unexpected error');
+		},
+		complete: function() {
+			editEmailFormButtonArea.show();
 		}
 	});
 }
@@ -174,7 +179,7 @@ function updatePassword() {
                 </div>
                 <div id="profile_card_edit_email_area" class="profile_card_edit_form_area">
                   <form id="profile_card_edit_email_form">
-                    <input type="email" class="profile_card_textbox" placeholder="New Email Address">
+                    <input type="email" class="profile_card_textbox" placeholder="New Email Address" name="email">
                     <br>
                     <div id="profile_card_edit_email_form_button_area">
                       <input type="button" value="CANCEL" class="text_button color_red profile_card_edit_form_cancel_button" id="profile_card_edit_email_cancel_button">
