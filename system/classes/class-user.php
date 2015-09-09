@@ -128,16 +128,30 @@ class User {
 		else throw new PBXException('db-00');
 	}
 	
-	public function changePassword($oldPassword, $newPassword) {
+	static public function checkUsernameExist($username) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE user SET password = :newPassword WHERE uid = :uid AND password = :oldPassword');
+		$stmt = $conn->prepare('SELECT COUNT(username) FROM user WHERE username = :username');
 		
-		$oldPassword = hashString($oldPassword);
-		$newPassword = hashString($newPassword);
+		if ($stmt->execute(array('username' => $username))) {
+			if ($result = $stmt->fetch()) {
+				if ($result[0] > 0) {
+					return true;
+				} else return false;
+			}
+		} else throw new PBXException('db-00');
+	}
+	
+	public function changePassword($password) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
 		
-		if ($stmt->execute(array('newPassword' => $newPassword, 'oldPassword' => $oldPassword, 'uid' => $this->uid))) {
+		$stmt = $conn->prepare('UPDATE user SET password = :password WHERE uid = :uid');
+		
+		$password = hashString($password);
+		
+		if ($stmt->execute(array('password' => $password, 'uid' => $this->uid))) {
 			if ($stmt->rowCount() >= 1)
 				return true;
 			else
@@ -145,19 +159,21 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 	
-	public function changePasswordWithoutOldPassword($password) {
+	public function isPasswordMatch($password) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE user SET password = :password WHERE uid = :uid');
-
-		$newPassword = hashString($newPassword);
+		$stmt = $conn->prepare('SELECT COUNT(uid) FROM user WHERE uid = :uid AND password = :password');
 		
-		if ($stmt->execute(array('password' => $password, 'uid' => $this->uid))) {
-			if ($stmt->rowCount() >= 1)
-				return true;
-			else
-				return false;
+		$password = hashString($password);
+		
+		if ($stmt->execute(array('uid' => $this->uid, 'password' => $password))) {
+			if ($result = $stmt->fetch()) {
+				if ($result[0] == 1)
+					return true;
+				else
+					return false;
+			}
 		} else throw new PBXException('db-00');
 	}
 	

@@ -4,12 +4,14 @@ class Entity {
 	private $entityGroupID;
 	private $name;
 	private $description;
+	private $additionalAttribute;
 	
 	private function __construct($id, $entityGroupID, $name, $description) {
 		$this->id = $id;
 		$this->entityGroupID = $entityGroupID;
 		$this->name = $name;
 		$this->description = $description;
+		$this->additionalAttribute = NOT_INITIALISED;
 	}
 	
 	static public function getEntityByID($id) {
@@ -114,6 +116,10 @@ class Entity {
 		return $this->description;
 	}
 	
+	public function  getAdditionalAttribute() {
+		return $this->additionalAttribute;
+	}
+	
 	public function updateEntityDescription($description) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
@@ -126,6 +132,12 @@ class Entity {
 				return true;
 			} else return false;
 		} else throw new PBXException('db-00');
+	}
+	
+	//maybe need else block
+	public function updateEntityAddtionalAttribute($entityGroupAttributeID, $value) {
+		if ($this->additionalAttribute != NOT_INITIALISED)
+			$this->additionalAttribute[$entityGroupAttributeID]->updateEntityAdditionalAttributeValue($value);
 	}
 }
 ?>

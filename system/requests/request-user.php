@@ -9,16 +9,18 @@ class UserRequest {
 		$do = $_GET['do'];
 		
 		switch ($do) {
-			case 'signin':
+			case 'sign-in':
 				return $this->signIn();
-			case 'signout':
+			case 'sign-out':
 				return $this->signOut();
-			case 'isSignedIn':
+			case 'is-signed-in':
 				return $this->isSignedIn();
-			case 'changePassword':
+			case 'change-password':
 				return $this->chnagePassword();
 			case 'is-username-used':
 				return $this->isUsernameUsed();
+			case 'change-email':
+				return $this->changeEmail();
 			default:
 				return array(false, 'Invalid request');
 		}
@@ -58,16 +60,30 @@ class UserRequest {
 		$userSession = UserSession::getInstance();
 		
 		if (!$user = $userSession->isSignedIn()) return array(false, 'Invalid request');
-		if (!isset($_POST['oldPassword'])) return array(false, 'Invalid request');
-		if (!isset($_POST['newPassword'])) return array(false, 'Invalid request');
+		if (!isset($_POST['password'])) return array(false, 'Invalid request');
 		
-		$oldPassword = $_POST['oldPassword'];
-		$newPassword = $_POST['newPassword'];
+		$password = $_POST['password'];
 		
-		if ($user->changePassword($oldPassword, $newPassword))
+		if (!$user->isPasswordMatched($password)) return array(false, 'Password mismatch');
+		
+		if ($user->changePassword($password))
 			return array(true); 
 		else
-			return array(false, 'Unable to change your password, please check the old password you entered is correct.');
+			return array(false, 'Unable to change your password at this moment');
+	}
+	
+	private function changeEmail() {
+		$userSession = UserSession::getInstance();
+	
+		if (!$user = $userSession->isSignedIn()) return array(false, 'Invalid request');
+		if (!isset($_POST['email'])) return array(false, 'Invaild request');
+	
+		$email = $_POST['email'];
+	
+		if ($user->updateEmail($email))
+			return array(true);
+		else
+			return array(false, 'Unable to change your email at this moment');
 	}
 	
 	private function isUsernameUsed() {
