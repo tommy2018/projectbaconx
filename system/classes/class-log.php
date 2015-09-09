@@ -1,6 +1,4 @@
 <?php
-include_once 'class-database.php';
-
 class Log {
 	private $timestamp;
 	private $actor;

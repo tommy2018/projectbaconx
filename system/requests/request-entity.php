@@ -1,5 +1,5 @@
 <?php
-include_once 'system/classes/class-userSession.php';
+require_once 'system/classes/class-userSession.php';
 require_once 'system/classes/class-entity.php';
 
 class EntityRequest {

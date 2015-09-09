@@ -1,6 +1,6 @@
 <?php
-include_once 'system/classes/class-userSession.php';
-include_once 'system/classes/class-user.php';
+require_once 'system/classes/class-userSession.php';
+require_once 'system/classes/class-user.php';
 
 class ControlPanelRequest {
 	public function processRequest() {

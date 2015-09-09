@@ -1,6 +1,6 @@
 <?php
-include_once 'system/classes/class-userSession.php';
-include_once 'system/classes/class-user.php';
+require_once 'system/classes/class-userSession.php';
+require_once 'system/classes/class-user.php';
 
 class UserRequest {
 	public function processRequest() {
@@ -69,7 +69,7 @@ class UserRequest {
 		if ($user->changePassword($password))
 			return array(true); 
 		else
-			return array(false, 'Unable to change your password at this moment');
+			return array(false, 'Unchange password');
 	}
 	
 	private function changeEmail() {
@@ -83,7 +83,7 @@ class UserRequest {
 		if ($user->updateEmail($email))
 			return array(true);
 		else
-			return array(false, 'Unable to change your email at this moment');
+			return array(false, 'Unchange email');
 	}
 	
 	private function isUsernameUsed() {

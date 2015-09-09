@@ -1,9 +1,9 @@
 <?php
-include_once 'system/classes/class-userSession.php';
-include_once 'system/classes/class-event.php';
-include_once 'system/classes/class-entityGroup.php';
-include_once 'system/classes/class-entity.php';
-include_once 'system/classes/class-userRole.php';
+require_once 'system/classes/class-userSession.php';
+require_once 'system/classes/class-event.php';
+require_once 'system/classes/class-entityGroup.php';
+require_once 'system/classes/class-entity.php';
+require_once 'system/classes/class-userRole.php';
 
 class EventRequest {
 	public function processRequest() {

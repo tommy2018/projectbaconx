@@ -1,5 +1,5 @@
 <?php 
-if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php';
+if ($user = $this->getVar('user')) require_once 'template-header.php'; else require_once 'template-header-guest.php';
 if (!$info = $this->getVar('info')) fatalError('Unexpected error occurred when rendering the page.');
 ?>
 

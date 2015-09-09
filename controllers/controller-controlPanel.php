@@ -1,5 +1,5 @@
 <?php
-include_once 'system/classes/class-template.php';
+require_once 'system/classes/class-template.php';
 
 $template = new Template();
 $userSession = UserSession::getInstance();

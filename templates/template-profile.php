@@ -1,4 +1,4 @@
-<?php if ($user = $this->getVar('user')) include_once 'template-header.php'; else include_once 'template-header-guest.php'; ?>
+<?php if ($user = $this->getVar('user')) require_once 'template-header.php'; else require_once 'template-header-guest.php'; ?>
 <style>
 body {
 	background: rgba(236,236,236,1.00);

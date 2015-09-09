@@ -1,6 +1,4 @@
 <?php
-include_once 'system/classes/class-entityGroup.php';
-
 class Event {
 	private $eventID;
 	private $name;
