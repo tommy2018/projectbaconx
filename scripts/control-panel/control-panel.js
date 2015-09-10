@@ -8,9 +8,18 @@ var cpOptionListItem;
 var cpOptionList;
 var cpSettingArea;
 var currentSettingPanelMenu;
+var cpOptionListSelectedClassName;
 
 $(document).ready(function(e) {
-	initControls();
+	cpMenuToggle = $('#control_panel_card_menu_toggle');
+	cpMenuToggleName = $('#control_panel_card_menu_toggle_name');
+	cpMenuDropdown = $('#control_panel_card_menu_dropdown');
+	cpMenuDropdownArrow = $('#control_panel_card_menu_toggle_arrow');
+	cpMenuDropdownItem = $('#control_panel_card_menu_dropdown li');
+	cpOptionListItem = $('#control_panel_card_option_list div');
+	cpSettingArea = $('#control_panel_card_setting_area');
+	cpOptionList = $('#control_panel_card_option_list');
+	cpOptionListSelectedClassName = 'control_panel_card_option_list_selected';
 	
 	cpMenuDropdownItem.on('click', function() {
 		switchSideNavigation($(this).data('file'));
@@ -63,8 +72,8 @@ function switchSettingPanelMenu(element) {
 			cpSettingArea.html('ERROR');
 		},
 		complete: function() {
-			cpOptionListItem.removeClass('control_panel_options_list_selected');
-			element.addClass('control_panel_options_list_selected');
+			cpOptionListItem.removeClass(cpOptionListSelectedClassName);
+			element.addClass(cpOptionListSelectedClassName);
 		}
 	});
 }
@@ -86,19 +95,8 @@ function switchSettingPanel(element) {
 	});
 }
 
-function initControls() {
-	cpMenuToggle = $('#control_panel_menu_toggle');
-	cpMenuToggleName = $('#control_panel_menu_toggle_name');
-	cpMenuDropdown = $('#control_panel_menu_dropdown');
-	cpMenuDropdownArrow = $('#control_panel_menu_toggle_arrow');
-	cpMenuDropdownItem = $('#control_panel_menu_dropdown li');
-	cpOptionListItem = $('#control_panel_options_list div');
-	cpSettingArea = $('#control_panel_setting_area');
-	cpOptionList = $('#control_panel_options_list');
-}
-
 function udpateOptionListControls() {
-	cpOptionListItem = $('#control_panel_options_list div');
+	cpOptionListItem = $('#control_panel_card_option_list div');
 	
 	cpOptionListItem.on('click', function() {
 		switchSettingPanelMenu($(this));
@@ -106,7 +104,7 @@ function udpateOptionListControls() {
 }
 
 function updateSettingPanelOptionListControls() {
-	var spOptionListItems = $('.control_panel_sub_option_list div');
+	var spOptionListItems = $('.control_panel_card_sub_option_list div');
 	
 	spOptionListItems.on('click', function() {
 		switchSettingPanel($(this));
@@ -114,7 +112,7 @@ function updateSettingPanelOptionListControls() {
 }
 
 function updateBackButtonControl() {
-	var backButton = $('#control_panel_title_back_button');
+	var backButton = $('.control_panel_card_title_back_button');
 	
 	backButton.on('click', function() {
 		switchSettingPanelMenu(currentSettingPanelMenu);

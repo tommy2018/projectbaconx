@@ -2,7 +2,6 @@
 /* CSS Document */
 body {
 	background: rgba(236,236,236,1.00);
-	font-family: sans-serif;
 }
 #main {
 	margin-top: 180px;
@@ -11,122 +10,102 @@ body {
 #main_frame {
 	margin: 0 10px 0 8px;
 }
-#control_panel_card .card_top {
+#control_panel_card_top {
 	background: #8BC34A;
-}
-#control_panel_options_list_area {
 	padding: 20px;
 }
-#control_panel_options_list {
+#control_panel_card_top_title {
+	font-size: 20px;
+	color: rgba(255,255,255,1.00);
+}
+#control_panel_card_menu_toggle {
+	cursor: pointer;
+}
+#control_panel_card_menu_dropdown {
+	margin-top: 10px;
+	font-size: 16px;
+	display:none;
+}
+#control_panel_card_menu_dropdown ul {
+	list-style-type: none;
+	padding: 0 0 0 10px;
+}
+#control_panel_card_menu_dropdown li:hover {
+	cursor: pointer;
+	background: rgba(255,255,255,0.15);
+}
+#control_panel_card_menu_dropdown li {
+	padding: 5px 0 5px 15px;
+}
+#control_panel_card_option_list_area {
+	padding: 20px;
+}
+#control_panel_card_option_list {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
 	font-size: 18px;
 	color: #616161;
 }
-.control_panel_options_list_item {
+.control_panel_card_option_list_item {
 	padding: 20px 0 20px 25px;
 }
-.control_panel_options_list_item:hover {
+.control_panel_card_option_list_item:hover {
 	cursor: pointer;
 	background: #F8F8F8;
 }
-.control_panel_options_list_selected {
+.control_panel_card_option_list_selected {
 	background: #EAEAEA !important;
 }
-.control_panel_sub_option_list_area {
-}
-.control_panel_sub_option_list_title {
+.control_panel_card_sub_option_list_title {
 	color: #00838F;
 	font-size: 22px;
 }
-.control_panel_sub_option_list {
-	padding: 10px 20px 20px 10px;
+#control_panel_card_setting_area {
+	padding: 35px 20px 20px 15px;
+}
+.control_panel_card_option_list_icon {
+	margin-right: 10px;
+	width: 22px;
+}
+.control_panel_card_sub_option_list_title {
+	color: #00838F;
 	font-size: 22px;
 }
-.control_panel_sub_option_list_item {
+.control_panel_card_sub_option_list_item {
 	padding: 5px 0 5px 0px;
 	color: #616161;
 	font-size:20px;
 }
-.control_panel_sub_option_list_item i {
+.control_panel_card_sub_option_list_item i {
 	width: 65px;
 	font-size: 26px;
 }
-.control_panel_sub_option_list_item:hover {
+.control_panel_card_sub_option_list_item:hover {
 	background: #F8F8F8;
 	cursor:pointer;
 }
-#control_panel_setting_area {
-	padding: 35px 20px 20px 15px;
+.control_panel_card_sub_option_list_item .fa {
+	padding: 20px 0 20px 25px;
 }
 .control_panel_title {
 	color: #00838F;
 	font-size: 22px;
 }
-.control_panel_control_title {
-	font-size: 16px;
-	margin-bottom: 6px;
-	display: inline-block;
-	color: #607D8B;
-}
-.control_panel_control {
-	font-size: 16px;
-	padding: 0 20px 25px 10px;
-}
-.control_panel_buttons_area {
-	float: right;
-	padding: 10px 30px 25px 0;
-}
-.control_panel_buttons_area button {
-	padding: 5px 15px 5px 15px;
-}
-.control_panel_buttons_area button:hover {
-	animation-name: aaa;
-	animation-duration: 0.5s;
-	background: #F1F1F1;
-}
-.cp_blue_button {
-	color: #2196F3;
-}
-.cp_red_button {
-	color: #F44336;
-}
-.control_panel_options_list_icon {
-	margin-right: 10px;
-	width: 22px;
-}
-#control_panel_menu_toggle {
-	cursor: pointer;
-}
-#control_panel_menu_dropdown {
-	margin-top: 10px;
-	font-size: 16px;
-	display:none;
-}
-#control_panel_menu_dropdown ul {
-	list-style-type: none;
-	padding: 0 0 0 10px;
-}
-#control_panel_menu_dropdown li:hover {
-	cursor: pointer;
-	background: rgba(255,255,255,0.15);
-}
-#control_panel_menu_dropdown li {
-	padding: 5px 0 5px 15px;
-}
-.control_panel_sub_panel {
+
+.tab_panel {
 	box-shadow: 2px 2px 2px rgba(5,5,5,0.10);
+	margin:30px 0 50px 0;
 }
-.control_panel_sub_panel_header {
+.tab_panel_header {
 	background: #607D8B;
 }
-.control_panel_sub_panel_title {
-	color: rgba(255,255,255,1.00);
+.tab_panel_title {
+	color: #FFFFFF;
 	font-size: 20px;
 	padding: 20px 0 25px 28px;
 }
-.control_panel_sub_panel_menu ul {
+.tab_panel_menu ul {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
@@ -134,7 +113,7 @@ body {
 	font-weight: lighter;
 	color: rgba(252,252,252,1.00);
 }
-.control_panel_sub_panel_menu li {
+.tab_panel_menu li {
 	display: inline-block;
 	padding: 0 15px 10px 15px;
 	margin-right: 18px;
@@ -142,21 +121,34 @@ body {
 	min-width: 120px;
 	border-bottom: 5px solid rgba(0,0,0,0.00);
 }
-.control_panel_sub_panel_menu li i {
+.tab_panel_menu li i {
 	margin-right: 10px;
 }
-.control_panel_sub_panel_menu_current {
+.tab_panel_menu_current_title {
 	border-bottom: rgba(255,255,255,1.00) 5px solid !important;
 }
-.control_panel_sub_panel_menu li:hover {
+.tab_panel_menu li:hover {
 	border-bottom: rgba(255,255,255,0.50) 5px solid;
 	cursor: pointer;
 }
-.control_panel_sub_panel_content {
-	min-height: 100px;
+.tab_panel_content {
+	min-height: 200px;
 	background: #F5F5F5;
 	padding: 25px;
 }
-#control_panel_frame {
-	padding: 0;
+.tab_panel_control {
+	font-size: 16px;
+	padding: 0 0 18px 0;
+}
+.tab_panel_control_title {
+	font-size: 16px;
+	margin-bottom: 6px;
+	display: inline-block;
+	color: #607D8B;
+}
+.tab_panel_content_tab_bottom_button_area {
+	float: right;
+}
+.tab_panel_content_tab_bottom_button_area input {
+	margin-left: 10px;
 }
