@@ -4,14 +4,14 @@ class Entity {
 	private $entityGroupID;
 	private $name;
 	private $description;
-	private $additionalAttribute;
+	private $additionalAttributes;
 	
 	private function __construct($id, $entityGroupID, $name, $description) {
 		$this->id = $id;
 		$this->entityGroupID = $entityGroupID;
 		$this->name = $name;
 		$this->description = $description;
-		$this->additionalAttribute = NOT_INITIALISED;
+		$this->additionalAttributes = NOT_INITIALISED;
 	}
 	
 	static public function getEntityByID($id) {
@@ -116,8 +116,13 @@ class Entity {
 		return $this->description;
 	}
 	
-	public function  getAdditionalAttribute() {
-		return $this->additionalAttribute;
+	public function  getAdditionalAttributes() {
+		if ($this->additionalAttributes == NOT_INITIALISED) {
+			$this->additionalAttributes = EntityAdditionalAttribute::getEntityAdditionalAttributesByEntityID($this->id);
+		} 
+		if (empty($this->additionalAttributes))
+			$this->additionalAttributes = null;
+		return $this->additionalAttributes;
 	}
 	
 	public function updateEntityDescription($description) {
@@ -136,8 +141,8 @@ class Entity {
 	
 	//maybe need else block
 	public function updateEntityAddtionalAttribute($entityGroupAttributeID, $value) {
-		if ($this->additionalAttribute != NOT_INITIALISED)
-			$this->additionalAttribute[$entityGroupAttributeID]->updateEntityAdditionalAttributeValue($value);
+		if ($this->additionalAttributes != NOT_INITIALISED)
+			$this->additionalAttributes[$entityGroupAttributeID]->updateEntityAdditionalAttributeValue($value);
 	}
 }
 ?>

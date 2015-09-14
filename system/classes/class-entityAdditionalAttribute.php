@@ -14,7 +14,7 @@ class EntityAdditionalAttribute {
 		$this->type = $type;
 	}
 	
-	static public function getEntityAdditionalAttributeByEntityID($entityID) {
+	static public function getEntityAdditionalAttributesByEntityID($entityID) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
