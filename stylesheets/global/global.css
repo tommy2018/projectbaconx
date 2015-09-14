@@ -40,3 +40,107 @@ body {
 .color_red {
 	color: #F44336;
 }
+.toggle_switch {
+	display: inline-block;
+  	position: relative;
+	width: 40px;
+  	height: 16px;
+  	border-radius: 8px;
+  	background: rgba(0,0,0,0.26);
+	-webkit-transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  	vertical-align: middle;
+  	cursor: pointer;
+	margin-left:10px;
+}
+
+.toggle_switch::before {
+	content: '';
+  	position: absolute;
+	top: -4px;
+	left: -4px;
+	width: 24px;
+	height: 24px;
+	background: #fafafa;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+	border-radius: 50%;
+	-webkit-transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.switch:active::before {
+	box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(128,128,128,0.1);
+}
+
+input:checked + .toggle_switch {
+	background: rgba(0,150,136,0.5);
+}
+
+input:checked + .toggle_switch::before {
+	left: 20px;
+	background: #009688;
+}
+
+input:checked + .toggle_switch:active::before {
+	box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(0,150,136,0.2);
+}
+
+.tab_panel {
+	box-shadow: 2px 2px 2px rgba(5,5,5,0.10);
+	margin:30px 0 50px 0;
+}
+.tab_panel_header {
+	background: #607D8B;
+}
+.tab_panel_title {
+	color: #FFFFFF;
+	font-size: 20px;
+	padding: 20px 0 25px 28px;
+}
+.tab_panel_menu ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	font-size: 16px;
+	font-weight: lighter;
+	color: rgba(252,252,252,1.00);
+}
+.tab_panel_menu li {
+	display: inline-block;
+	padding: 0 15px 10px 15px;
+	margin-right: 18px;
+	text-align: center;
+	min-width: 120px;
+	border-bottom: 5px solid rgba(0,0,0,0.00);
+}
+.tab_panel_menu li i {
+	margin-right: 10px;
+}
+.tab_panel_menu_current_title {
+	border-bottom: rgba(255,255,255,1.00) 5px solid !important;
+}
+.tab_panel_menu li:hover {
+	border-bottom: rgba(255,255,255,0.50) 5px solid;
+	cursor: pointer;
+}
+.tab_panel_content {
+	min-height: 200px;
+	background: #F5F5F5;
+	padding: 25px;
+}
+.tab_panel_control {
+	font-size: 16px;
+	padding: 0 0 18px 0;
+}
+.tab_panel_control_title {
+	font-size: 16px;
+	margin-bottom: 6px;
+	display: inline-block;
+	color: #607D8B;
+}
+.tab_panel_content_tab_bottom_button_area {
+	float: right;
+}
+.tab_panel_content_tab_bottom_button_area input {
+	margin-left: 10px;
+}

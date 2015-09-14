@@ -18,7 +18,8 @@ try {
 		case 'profile':
 			require_once 'controllers/controller-profile.php';
 			break;
-		case 'dashboard':
+		case 'edit-entity':
+			require_once 'controllers/controller-editEntity.php';
 			break;
 		case 'dashboard':
 			break;

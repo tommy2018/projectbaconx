@@ -1,4 +1,4 @@
-DirectoryIndex router.php
+DirectoryIndex router.php index.php index.html
 
 RewriteEngine on
 
@@ -8,5 +8,6 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
 
 RewriteRule ^project/([0-9]+)/?$ router.php?module=project&id=$1 [NC,L]
+RewriteRule ^edit-entity/([0-9]+)/?$ router.php?module=edit-entity&id=$1 [NC,L]
 RewriteRule ^(.*)/$ router.php?module=$1 [NC,L]
 RewriteRule ^(.*)$ router.php?module=$1 [NC,L]

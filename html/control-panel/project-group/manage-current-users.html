@@ -1,80 +1,169 @@
-<div id="cp_create_user_panel">
+<style>
+#cp_manage_user_panel_manage_panel_content_area {
+	width: 100%;
+	margin-top: 20px;
+}
+#cp_manage_user_panel_manage_panel_table_area {
+	box-shadow: none;
+	margin-bottom: 0px;
+	display: none;
+}
+#cp_manage_user_panel_manage_panel_table th {
+	color: #607D8B;
+}
+#cp_manage_user_panel_manage_panel_table td {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+#cp_manage_user_panel_manage_panel_no_result {
+	text-align: center;
+	color: #A9A9A9;
+	line-height: 200px;
+	font-size: 24px;
+	background: rgba(201,201,201,0.20);
+	padding: 15px;
+	border-radius: 5px;
+	display: none;
+}
+#cp_manage_user_panel_manage_panel_user_details_edit_area {
+	display: none;
+}
+#cp_manage_user_panel_manage_panel_search_bar_area {
+	display: none;
+}
+#cp_manage_user_panel_manage_panel_user_details_edit_area_uid {
+	color: #607D8B;
+	display: block;
+}
+#cp_manage_user_panel_manage_panel_table_area_footer {
+	color: #777676;
+}
+#cp_manage_user_panel_manage_panel_user_password_edit_area_user_details {
+	color: #607D8B;
+}
+</style>
+
+<div id="cp_manage_user_panel">
   <div class="control_panel_title">
     <button type="button" class="control_panel_card_title_back_button image_button"><i class="fa fa-chevron-left"></i></button>
-    <span>Create New User</span>
+    <span>BACK</span>
     <div style="float:right"></div>
   </div>
   <hr>
   <div class="tab_panel">
     <div class="tab_panel_header">
-      <div class="tab_panel_title">Create New User Panel</div>
+      <div class="tab_panel_title">Manage Users Panel</div>
       <div class="tab_panel_menu">
         <ul>
-          <li class="tab_panel_menu_current_title"> <i class="fa fa-plus-circle"></i>ONE-BY-ONE</li>
-          <li><i class="fa fa-file-excel-o"></i>CSV FILE</li>
+          <li class="tab_panel_menu_current_title"> <i class="fa fa-pencil"></i>MANAGE</li>
         </ul>
       </div>
     </div>
     <div class="tab_panel_content">
-      <div id="cp_create_user_panel_obo_panel" class="tab_panel_content_tab">
-        <form id="cp_create_user_panel_obo_panel_form">
-          <div class="tab_panel_control"> <span class="tab_panel_control_title">Username</span>
-            <input type="text" class="form-control" name="username">
+      <div id="cp_manage_user_panel_manage_panel">
+        <div class="input-group" id="cp_manage_user_panel_manage_panel_search_bar_area"> <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="UID / USERNAME / EMAIL / FULL NAME">
+          <span class="input-group-btn">
+          <button class="btn btn-default" type="button">SEARCH</button>
+          </span> </div>
+        <div id="cp_manage_user_panel_manage_panel_content_area">
+          <div id="cp_manage_user_panel_manage_panel_setting_area">
+            <div id="cp_manage_user_panel_manage_panel_table_area">
+              <div class="panel panel-default">
+                <table class="table">
+                  <tr>
+                    <th>UID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Tommy</td>
+                    <td>Man Pio Lei</td>
+                    <td>mpl989@uowmail.edu.au</td>
+                    <td>Edit</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Tommy</td>
+                    <td>Man Pio Lei</td>
+                    <td>mpl989@uowmail.edu.au</td>
+                    <td>Edit</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Tommy</td>
+                    <td>Man Pio Lei</td>
+                    <td>mpl989@uowmail.edu.au</td>
+                    <td>Edit</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Tommy</td>
+                    <td>Man Pio Lei</td>
+                    <td>mpl989@uowmail.edu.au</td>
+                    <td>Edit</td>
+                  </tr>
+                </table>
+              </div>
+              <div id="cp_manage_user_panel_manage_panel_table_area_footer">*Only the first 15 results will be displayed.</div>
+            </div>
+            <div id="cp_manage_user_panel_manage_panel_user_details_edit_area">
+              <div class="tab_panel_control" id="cp_manage_user_panel_manage_panel_user_details_edit_area_uid">User Identifier: 1
+                <hr>
+              </div>
+              <form id="cp_manage_user_panel_manage_panel_user_details_edit_form">
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">Username</span>
+                  <input type="text" class="form-control" name="username">
+                </div>
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">Email</span>
+                  <input type="text" class="form-control" name="email">
+                </div>
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">First name</span>
+                  <input type="text" class="form-control" name="firstName">
+                </div>
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">Middle name (Optional)</span>
+                  <input type="text" class="form-control" name="middleName">
+                </div>
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">Last name</span>
+                  <input type="text" class="form-control" name="lastName">
+                </div>
+                <hr>
+                <div class="tab_panel_content_tab_bottom_button_area">
+                  <input type="button" value="CANCEL" class="text_button color_red">
+                  <input type="submit" value="CHANGE" class="text_button color_blue">
+                </div>
+                <div style="clear:both;"></div>
+              </form>
+            </div>
+            <div id="cp_manage_user_panel_manage_panel_user_password_edit_area">
+              <div class="tab_panel_control" id="cp_manage_user_panel_manage_panel_user_password_edit_area_user_details">Username: Tommy<br>
+                User Identifier: 1<br>
+                Full Name: Man Pio Lei<br>
+                Email: mpl989@uow.edu.au
+                <hr>
+              </div>
+              <form id="cp_manage_user_panel_manage_panel_user_password_edit_form">
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">New Password</span>
+                  <input type="password" class="form-control" name="newPassword">
+                </div>
+                <div class="tab_panel_control"> <span class="tab_panel_control_title">Confirm New Password</span>
+                  <input type="password" class="form-control" name="confirmPassword">
+                </div>
+                <hr>
+                <div class="tab_panel_content_tab_bottom_button_area">
+                  <input type="button" value="CANCEL" class="text_button color_red">
+                  <input type="submit" value="CHANGE" class="text_button color_blue">
+                </div>
+                <div style="clear:both;"></div>
+              </form>
+            </div>
           </div>
-          <div class="tab_panel_control"> <span class="tab_panel_control_title">Password</span>
-            <input type="password" class="form-control" name="password">
-          </div>
-          <div class="tab_panel_control"> <span class="tab_panel_control_title">Email</span>
-            <input type="text" class="form-control" name="email">
-          </div>
-          <div class="tab_panel_control"> <span class="tab_panel_control_title">First name</span>
-            <input type="text" class="form-control" name="firstName">
-          </div>
-          <div class="tab_panel_control"> <span class="tab_panel_control_title">Middle name (Optional)</span>
-            <input type="text" class="form-control" name="middleName">
-          </div>
-          <div class="tab_panel_control"> <span class="tab_panel_control_title">Last name</span>
-            <input type="text" class="form-control" name="lastName">
-          </div>
-          <hr>
-          <div class="tab_panel_content_tab_bottom_button_area">
-            <input type="button" value="RESET" class="text_button color_red">
-            <input type="submit" value="SUBMIT" class="text_button color_blue">
-          </div>
-          <div style="clear:both;"></div>
-        </form>
+          <div id="cp_manage_user_panel_manage_panel_no_result"> NO RESULT </div>
+        </div>
       </div>
-      <div id="cp_create_user_panel_csv_panel" class="tab_panel_content_tab"> </div>
     </div>
   </div>
 </div>
-
-<!--
-<script>
-$(document).ready(function(e) {
-    var form = $('#cp_create_new_user_form');
-	var resetButton = $('#cp_create_new_user_reset_button');
-	var addButton = $('#cp_create_new_user_add_button');
-	
-	resetButton.on('click', function() { form[0].reset(); });
-	addButton.on('click', function() {
-		$.ajax({
-				type: 'POST',
-				url: 'request.php?module=control-panel&do=create-user',
-				dataType: 'json',
-				data: form.serialize(),
-				success: function(data) {
-					if (data.success)
-						alert('OK');
-					else {
-						alert(data.errorMessage);
-					}
-				},
-				error: function() {
-					alert('ERROR');
-				}
-		});
-	});
-});
-</script>
--->
