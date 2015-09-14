@@ -1,4 +1,6 @@
 <?php
+require_once 'system/classes/class-entityAdditionalAttribute.php';
+
 class Entity {
 	private $id;
 	private $entityGroupID;
