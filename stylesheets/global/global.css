@@ -144,3 +144,24 @@ input:checked + .toggle_switch:active::before {
 .tab_panel_content_tab_bottom_button_area input {
 	margin-left: 10px;
 }
+.tab_panel_content_error_message {
+	margin-bottom:18px;
+	font-size:16px;
+	color:#FFFFFF;
+	background:#DA5C5E; 
+	padding:12px 0 12px 15px;
+	display:none;
+}
+.tab_panel_content_info_message {
+	margin-bottom:18px;
+	font-size:16px;
+	color:#FFFFFF;
+	background:#4AB875;
+	padding:12px 0 12px 15px;
+	display:none;
+}
+.tab_panel_content_tab_bottom_processing_message {
+	float: right;
+	font-size:18px;
+	display: none;
+}

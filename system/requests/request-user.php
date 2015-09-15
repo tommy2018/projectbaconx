@@ -1,5 +1,4 @@
 <?php
-require_once 'system/classes/class-userSession.php';
 require_once 'system/classes/class-user.php';
 
 class UserRequest {

@@ -1,6 +1,6 @@
 <?php
 class PBXException extends Exception {
-	static private $errorMessage = array('db-00' => 'Couldn\'t not execute database query.');
+	static private $errorMessage = array('db-00' => 'Couldn\'t not execute database query.', 'sys-00' => 'System internal error.');
 	protected $message;
 	
 	function __construct($errorCode) {

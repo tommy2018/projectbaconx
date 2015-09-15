@@ -9,7 +9,7 @@ if (!$info = $this->getVar('info')) fatalError('Unexpected error occurred when r
       <div class="col-md-12">
         <div class="card" id="project_card">
           <div id="project_card_menu"><i class="fa fa-cubes"></i> <span id="project_card_menu_title"><?php echo $info['basicInfo']['name']; ?></span>
-            <div id="project_card_menu_buttons"> <a href="<?php echo 'edit-entity/' . $info['basicInfo']['id'] ?>"><i class="fa fa-pencil"></i></a> </div>
+            <div id="project_card_menu_buttons"> <a href="<?php echo 'edit-entity/' . $info['basicInfo']['id'] ?>"><i class="fa fa-pencil"></i> EDIT</a> </div>
           </div>
           <div class="container-fluid">
             <div class="row">
@@ -25,7 +25,7 @@ if (!$info = $this->getVar('info')) fatalError('Unexpected error occurred when r
                           <hr>
                           <div style="padding:20px 15px 0 15px;">
                             <div class="project_information_card_attribute"> <span class="project_information_card_attribute_title">DESCRIPTION <i class="fa fa-chevron-up"></i></span> <span class="project_information_card_attribute_content">
-                              <?php if ($info['basicInfo']['description']) echo $info['basicInfo']['description']; else echo 'No description available at the moment.'; ?>
+                              <?php if (!empty($info['basicInfo']['description'])) echo $info['basicInfo']['description']; else echo 'No description available at the moment.'; ?>
                               </span>
                               <?php if ($info['additionalAttributes']) echo '<hr>'; ?>
                             </div>

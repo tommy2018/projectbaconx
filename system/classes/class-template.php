@@ -3,13 +3,16 @@ class Template {
 	private $context;
 	
 	public function display($page) {
+		global $setting;
+		$systemSetting = SystemSetting::getInstance();
+		
 		$file = DOC_ROOT . 'templates/' . $page . '.php';
 		
 		if (file_exists($file)) {
 			$this->context['core']['body'] = $file;
 		
-		global $setting;
-		$this->context['content']['applicationTitle'] = 'eShow Event Management System';
+		$this->context['content']['applicationTitle'] = $systemSetting->getSetting('applicationTitle');
+		
 		include_once DOC_ROOT. 'templates/core/core.php';
 		} else fatalError('Template file not found');
 	}

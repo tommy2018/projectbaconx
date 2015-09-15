@@ -25,6 +25,10 @@ switch ($module) {
 		require_once 'system/requests/request-controlPanel.php';
 		$request = new ControlPanelRequest();
 		break;
+	case 'system-setting':
+		require_once 'system/requests/request-systemSetting.php';
+		$request = new SystemSettingRequest();
+		break;
 	default:
 		response(array(false, 'Invalid request'));
 }

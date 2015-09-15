@@ -10,7 +10,7 @@ try {
 			require_once 'controllers/controller-home.php';
 			break;
 		case 'project':
-			require_once 'controllers/controller-project.php';
+			require_once 'controllers/controller-entity.php';
 			break;
 		case 'control-panel':
 			require_once 'controllers/controller-controlPanel.php';

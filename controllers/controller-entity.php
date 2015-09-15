@@ -19,10 +19,10 @@ if (!isset($_GET['id'])) fatalError('Unable to find the resource you requested.'
 if (!preg_match('/^[1-9][0-9]*$/', $_GET['id'])) fatalError('Unable to find the resource you requested.', 404);
 
 $projectID = $_GET['id'];
-$info = Entity::getEntityInfoByID($projectID);
+$info = EntityAPI::getEntityInfoByID($projectID);
 
 if (!$info) fatalError('Unable to find the resource you requested.', 404);
 $template->assign('info', $info);
 
-$template->display('template-project');
+$template->display('template-entity');
 ?>

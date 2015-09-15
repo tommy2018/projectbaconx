@@ -18,3 +18,17 @@
 #entity_edit_card_title {
 	color: rgba(38,38,38,0.75);
 }
+#entity_card_tab_panel_area {
+	margin:0 20px 0 20px;
+}
+#entity_edit_card_other_attributes_panel, #entity_edit_card_media_panel {
+	display: none;
+}
+#entity_edit_card_menu_buttons {
+	float: right;
+	color: rgba(38,38,38,0.75);
+}
+#entity_edit_card_menu_buttons a:link, a:visited, a:hover, a:active {
+	color:rgba(38,38,38,0.75);
+	text-decoration:none;
+}

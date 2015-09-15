@@ -63,7 +63,7 @@ class EntityGroup {
 		return $this->description;
 	}
 	
-	public function updateEntityGroupName($name) {
+	public function setName($name) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		

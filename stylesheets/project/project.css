@@ -79,6 +79,7 @@
 	text-align:justify;
 	margin-bottom:50px;
 }
-#project_card_menu_buttons a:link, a:visited {
+#project_card_menu_buttons a:link, a:visited, a:hover, a:active {
 	color:rgba(38,38,38,0.75);
+	text-decoration:none;
 }

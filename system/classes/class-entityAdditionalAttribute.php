@@ -1,13 +1,13 @@
 <?php
 class EntityAdditionalAttribute {
-	private $id;
+	private $additionalAttributeID;
 	private $entityID;
 	private $name;
 	private $value;
 	private $type;
 	
-	private function __construct($id, $entityID, $name, $value, $type) {
-		$this->id = $id;
+	private function __construct($additionalAttributeID, $entityID, $name, $value, $type) {
+		$this->additionalAttributeID = $additionalAttributeID;
 		$this->entityID = $entityID;
 		$this->name = $name;
 		$this->value = $value;
@@ -18,18 +18,23 @@ class EntityAdditionalAttribute {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('SELECT id, entityID, name, value, type FROM entity_group_attribute JOIN entity_group_attribute_value ON entity_group_attribute.id = entity_group_attribute_value.entityGroupAttributeID where entity_group_attribute_value.entityID = :entityID');
+		$stmt = $conn->prepare('SELECT entity.id entityID, entity_group_attribute.id additionalAttributeID, entity_group_attribute.name, entity_group_attribute_value.value, entity_group_attribute.type FROM entity_group_attribute LEFT JOIN entity ON (entity_group_attribute.entityGroupID = entity.entityGroupID) LEFT JOIN entity_group_attribute_value ON (entity_group_attribute_value.entityID = entity.id AND entity_group_attribute_value.entityGroupAttributeID = entity_group_attribute.id) WHERE entity.id = :entityID');
+		$entityAdditionalAttributes = [];
 		
 		if ($stmt->execute(array('entityID' => $entityID))) {
-			$entityAdditionalAttributes = null;
 			while ($result = $stmt->fetch())
-				$entityAdditionalAttributes[$result['id']] = new EntityAdditionalAttribute($result['id'], $result['entityID'], $result['name'], $result['value'], $result['type']);
-			return $entityAdditionalAttributes;
+				$entityAdditionalAttributes[$result['name']] = new EntityAdditionalAttribute($result['additionalAttributeID'], $result['entityID'], $result['name'], $result['value'], $result['type']);
 		} else throw new PBXException('db-00');
+		
+		return $entityAdditionalAttributes;
 	}
 	
 	public function getID() {
 		return $this->id;
+	}
+	
+	public function getAdditionalAttributeID() {
+		return $this->additionalAttributeID;
 	}
 	
 	public function getEntityID() {
@@ -44,26 +49,57 @@ class EntityAdditionalAttribute {
 		return $this->value;
 	}
 	
-	public function getType() {
-		return $this->type;
-	}
-	
 	public function setValue($value) {
-		$this->value = $value;
-	}
-	
-	public function updateEntityAdditionalAttributeValue($value) {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		$stmt = $conn->prepare('UPDATE entity_group_attribute_value SET value = :value WHERE entityGroupAttributeID = :entityGroupAttributeID AND entityID = :entityID');
+		if ($this->value === null)
+			$stmt = $conn->prepare('INSERT INTO entity_group_attribute_value(value, entityID, entityGroupAttributeID) VALUES(:value, :entityID, :entityGroupAttributeID)');
+		else
+			$stmt = $conn->prepare('UPDATE entity_group_attribute_value SET value = :value WHERE entityID = :entityID AND entityGroupAttributeID = :entityGroupAttributeID');
 		
-		if ($stmt->execute(array('value' => $value, 'entityGroupAttributeID' => $this->id, 'entityID' => $this->entityID))) {
-			if ($stmt->rowCount() >= 1) {
-				$this->value = $value;
-				return true;
-			} return false;
-		} else throw new PBXException('db-00');
+		if (!$stmt->execute(array('value' => $value, 'entityID' => $this->entityID, 'entityGroupAttributeID' => $this->additionalAttributeID))) throw new PBXException('db-00');
 	}
+	
+	public function toHTMLElement($name, $class, $id) {
+		switch ($this->type) {
+			case AttributeType::text:
+				return '<input type="text" ' . (($name) ? 'name="' . $name . '" ' : '') . (($class) ? 'class="' . $class . '" ' : '') . (($id) ? 'id="' . $id . '" ' : '') . 'value="' . $this->value . '">';
+				break;
+			case AttributeType::textArea:
+				break;
+			case AttributeType::email:
+				break;
+			case AttributeType::weblink:
+				break;
+			case AttributeType::number:
+				break;
+			default:
+				return null;
+		}
+	}
+	
+	private static function isValueSatisfiedAttributeType($attributeSchema, $value) {
+		switch ($attributeSchema->getType()) {
+			case AttributeType::text:
+				break;
+			case AttributeType::textArea:
+				break;
+			case AttributeType::email:
+				break;
+			case AttributeType::weblink:
+				break;
+			case AttributeType::number:
+				break;
+			default:
+		}
+	}
+}
+class AttributeType {
+	const text = 0;
+	const textArea = 1;
+	const email = 2;
+	const weblink = 3;
+	const number = 4;
 }
 ?>
