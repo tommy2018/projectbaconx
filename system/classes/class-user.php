@@ -223,4 +223,23 @@ class User {
 		} else throw new PBXException('db-00');
 	}
 }
+
+class UserAPI {
+	static function newUsers($data) {
+		$db = Database::getInstance();
+		$conn = $db->connect();
+		$conn->beginTransaction();
+		
+		$stmt = $conn->prepare('INSERT INTO user(username, password, firstName, lastName, middleName, email) VALUES(:username, :password, :firstName, :lastName, :middleName, :email)');
+		
+		foreach ((array)$data as $record) {
+			if (!$stmt->execute(array('username' => $record['username'], 'password' => hashString($record['password']), 'firstName' => $record['firstName'], 'lastName' => $record['lastName'], 'middleName' => $record['middleName'], 'email' => $record['email']))) {
+				$conn->rollBack();
+				throw new PBXException('db-00');
+			}
+		}
+		
+		$conn->commit();
+	}
+}
 ?>

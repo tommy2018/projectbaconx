@@ -11,6 +11,8 @@ $pageID = 'CONTROL PANEL';
 if ($user) {
 	include_once 'controller-global.inc.php';
 	
+	$template->addScript('https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js');
+	$template->addScript('https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/bloodhound.js');
 	$template->addScript('scripts/control-panel/control-panel.js');
 	$template->addStylesheet('stylesheets/control-panel/control-panel.css');
 	

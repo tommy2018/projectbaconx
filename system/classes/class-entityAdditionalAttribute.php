@@ -53,11 +53,7 @@ class EntityAdditionalAttribute {
 		$db = Database::getInstance();
 		$conn = $db->connect();
 		
-		if ($this->value === null)
-			$stmt = $conn->prepare('INSERT INTO entity_group_attribute_value(value, entityID, entityGroupAttributeID) VALUES(:value, :entityID, :entityGroupAttributeID)');
-		else
-			$stmt = $conn->prepare('UPDATE entity_group_attribute_value SET value = :value WHERE entityID = :entityID AND entityGroupAttributeID = :entityGroupAttributeID');
-		
+		$stmt = $conn->prepare('INSERT INTO entity_group_attribute_value(value, entityID, entityGroupAttributeID) VALUES(:value, :entityID, :entityGroupAttributeID) ON DUPLICATE KEY UPDATE value = :value');
 		if (!$stmt->execute(array('value' => $value, 'entityID' => $this->entityID, 'entityGroupAttributeID' => $this->additionalAttributeID))) throw new PBXException('db-00');
 	}
 	

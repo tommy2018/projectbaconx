@@ -20,6 +20,8 @@ class UserRequest {
 				return $this->isUsernameUsed();
 			case 'change-email':
 				return $this->changeEmail();
+			case 'create-users':
+				return $this->createUsers();
 			default:
 				return array(false, 'Invalid request');
 		}
@@ -95,6 +97,19 @@ class UserRequest {
 		if (!isset($_POST['username'])) return array(false, 'Invalid request');
 		
 		$username = $_POST['username'];
+	}
+	
+	private function createUsers() {
+		if (!isset($_POST['data'])) return array(false, 'Invalid request');
+		$data = $_POST['data'];
+		
+		for ($i = 0; $i < sizeof($data); $i++) {
+			if (!isset($data[$i]['middleName']))
+				$data[$i]['middleName'] = null;
+		}
+		
+		UserAPI::newUsers($data);
+		return array(true);
 	}
 }
 ?>

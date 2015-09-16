@@ -33,6 +33,7 @@ function processUserInput($value) {
 	$processedString = trim($value);
 	//$processedString = strip_tags($processedString);
 	$processedString = htmlspecialchars($processedString);
+	if (strlen($processedString) <= 0) $processedString = null;
 	
 	return $processedString;
 }

@@ -10,7 +10,8 @@
                 <ul>
                   <li data-name="APPLICATION SETTINGS" data-file="control-panel/side-menu/application.html">- APPLICATION SETTINGS</li>
                   <li data-name="EVENT SETTINGS" data-file="control-panel/side-menu/event.html">- EVENT SETTINGS</li>
-                  <li data-name="PROJECT GROUP SETTINGS" data-file="control-panel/side-menu/project-group.html">- PROJECT GROUP SETTINGS</li>
+                  <li data-name="ENTITY GROUP SETTINGS" data-file="control-panel/side-menu/entity-group.html">- ENTITY GROUP SETTINGS</li>
+                  <li data-name="ENTITY SETTINGS" data-file="control-panel/side-menu/entity.html">- ENTITY SETTINGS</li>
                 </ul>
               </div>
             </div>

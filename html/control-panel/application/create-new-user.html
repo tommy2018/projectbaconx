@@ -1,0 +1,436 @@
+<script>
+var csvDropbox;
+var csvDropboxMessage;
+var csvTableArea;
+var csvResultArea;
+var tableData;
+var csvDiscardButton;
+var csvNextButton;
+var usernameOption;
+var firstnameOption;
+var middlenameOption;
+var lastnameOption;
+var emailOption;
+var csvConfirmTable;
+var csvConfirmArea;
+var csvPerviousButton;
+var csvSubmitButton;
+var csvSubmitData;
+
+$(document).ready(function(e) {
+    csvDropbox = $('#cp_create_user_panel_csv_panel_dropbox');
+	csvDropboxMessage = $('#cp_create_user_panel_csv_panel_dropbox').html();
+	csvTableArea = $('#cp_create_user_panel_csv_panel_table_area');
+	csvResultArea = $('#cp_create_user_panel_csv_panel_result_area');
+	csvDiscardButton = $('#cp_create_user_panel_csv_panel_result_discard_button');
+	csvNextButton = $('#cp_create_user_panel_csv_panel_result_next_button');
+	usernameOption = $('#cp_create_user_panel_csv_panel_result_username_option');
+	firstnameOption = $('#cp_create_user_panel_csv_panel_result_firstname_option');
+	middlenameOption = $('#cp_create_user_panel_csv_panel_result_middle_option');
+	lastnameOption = $('#cp_create_user_panel_csv_panel_result_lastname_option');
+	emailOption = $('#cp_create_user_panel_csv_panel_result_email_option');
+	csvConfirmTable = $('#cp_create_user_panel_csv_panel_confirm_table_area table');
+	csvConfirmArea = $('#cp_create_user_panel_csv_panel_confirm_area');
+	csvPerviousButton = $('#cp_create_user_panel_csv_panel_confirm_pervious_button');
+	csvSubmitButton = $('#cp_create_user_panel_csv_panel_confirm_submit_button');
+	
+	csvDropbox.on('dragover', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		csvDropbox.html(csvDropboxMessage);
+		$(this).addClass('hover');
+	});
+	
+	csvDropbox.on('dragleave', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		$(this).removeClass('hover');
+	});
+	
+	csvDiscardButton.on('click', function() {
+		csvDropbox.show();
+		csvResultArea.hide();
+	});
+	
+	csvNextButton.on('click', function() {
+		if (csvBeforeSubmitCheck()) {
+			generateConfirmTable();
+			csvResultArea.hide();
+			csvConfirmArea.show();
+		}
+	});
+	
+	csvPerviousButton.on('click', function() {
+		csvResultArea.show();
+		csvConfirmArea.hide();
+	});
+	
+	csvSubmitButton.on('click', function() {
+		$.ajax({
+			url:'request.php?module=user&do=create-users',
+			type:'POST',
+			data: {data: csvSubmitData},
+			beforeSend: function() {
+			},
+			success:function(data) {
+				if (data.success) {
+					alert('Records saved');
+					csvConfirmArea.hide();
+					csvDropbox.show();
+				} else {
+					alert(data.errorMessage);
+				}
+			},
+			error:function() {
+				alert('Unexpected error');
+			}
+		});
+	});
+	
+	csvDropbox.on('drop', function(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		$(this).removeClass('hover');
+		
+		var formData = new FormData();
+		var file = event.originalEvent.dataTransfer.files[0];
+		
+		if (file) {
+			formData.append('file', file);
+		
+			$.ajax({
+				url:'request.php?module=tool&do=analyse-csv-file',
+				type:'POST',
+				data:formData,
+				processData:false,
+				contentType:false,
+				cache:false,
+				beforeSend: function() {
+					csvDropbox.html('<i class="fa fa-spinner fa-pulse"></i> UPLOADING');
+				},
+				success:function(data) {
+					if (data.success) {
+						if (data.result.length > 0) {
+							csvDropbox.hide();
+							csvDropbox.html(csvDropboxMessage);
+							generateTable(data.result);
+						} else {
+							csvDropbox.html('<spn style="color:red;"><i class="fa fa-exclamation-triangle"></i> EMPTY RESULT</span>');
+						}
+					} else
+						csvDropbox.html('<spn style="color:red;"><i class="fa fa-exclamation-triangle"></i> ' + data.errorMessage + '</span>');
+				},
+				error:function() {
+					csvDropbox.html('<spn style="color:red;"><i class="fa fa-exclamation-triangle"></i> UNEXPECTED ERROR</span>');
+				}
+			});
+		}
+	});
+});
+
+function generateConfirmTable() {
+	var context = '';
+	var usernameRowID = usernameOption.children('option:selected').first().attr('value');
+	var firstnameRowID = firstnameOption.children('option:selected').first().attr('value');
+	var middlenameRowID = middlenameOption.children('option:selected').first().attr('value');
+	var lastnameRowID = lastnameOption.children('option:selected').first().attr('value');
+	var emailRowID = emailOption.children('option:selected').first().attr('value');
+	csvSubmitData = [];
+	
+	for (var i = 1; i < tableData.length; i++) {
+		if (!tableData[i]['ignored']) {
+			csvSubmitData[i - 1]  = new Object();
+			csvSubmitData[i - 1]['username'] = tableData[i][usernameRowID];
+			csvSubmitData[i - 1]['password'] = tableData[i]['password'];
+			csvSubmitData[i - 1]['email'] = tableData[i][emailRowID];
+			csvSubmitData[i - 1]['firstName'] = tableData[i][firstnameRowID];
+			csvSubmitData[i - 1]['lastName'] = tableData[i][lastnameRowID];
+			csvSubmitData[i - 1]['middleName'] = tableData[i][middlenameRowID];
+			
+			context += '<tr><td>' + tableData[i][usernameRowID] + '</td>';
+			context += '<td>' + tableData[i]['password'] + '</td>';
+			context += '<td>' + tableData[i][emailRowID] + '</td>';
+			context += '<td>' + tableData[i][firstnameRowID] + '</td>';
+			if (middlenameRowID < 0) context += '<td>' + '</td>'; else context += '<td>' + tableData[i][middlenameRowID] + '</td>';
+			context += '<td>' + tableData[i][lastnameRowID] + '</td></tr>';
+		}
+	}
+	
+	csvConfirmTable.children('tbody').html(context);
+}
+
+function csvBeforeSubmitCheck() {
+	var usernameRowID = usernameOption.children('option:selected').first().attr('value');
+	var emailRowID = emailOption.children('option:selected').first().attr('value');
+	var allIgnored = true;
+	var uniqueEmail = true;
+	var uniqueUsername = true;
+	
+	for (var i = 1; i < tableData.length; i++) {
+		if (!tableData[i]['ignored']) {
+			allIgnored = false;
+			break;
+		}
+	}
+	
+	for (var i = 1; i < tableData.length; i++) {
+		for (var x = 1; x < tableData.length; x++) {
+			if (tableData[i][usernameRowID] == tableData[x][usernameRowID] && i != x) {
+				uniqueUsername = false;
+				break;
+			}
+			if (tableData[i][emailRowID] == tableData[x][emailRowID] && i != x) {
+				uniqueEmail = false;
+				break;
+			}
+		}
+		if (!uniqueUsername) break;
+		if (!uniqueEmail) break;
+	}
+	
+	if (!allIgnored && uniqueEmail && uniqueUsername)
+		return true;
+	else {
+		if (allIgnored) alert('No row selected');
+		if (!uniqueUsername) alert('Username must be unique');
+		if (!uniqueEmail) alert('Email must be unique');
+		return false;
+	}
+}
+
+function generateTable(data) {
+	var context = '<table class="table table-hover"><thead><tr>';
+	var option = '';
+	var optionWithOptional = '<option value="-1">No Value (Optional)</option>';
+	
+	for (var i = 0; i < data[0].length; i++) {
+		context += '<td>' + data[0][i] + '</td>';
+		option += '<option value="' + i + '">' + data[0][i] + '</option>';
+	}
+	
+	context += '<tr></thead><tbody>';
+	
+	for (var i = 1; i < data.length; i++) {
+		context += '<tr data-id="' + i + '">';
+		for (var x = 0; x < data[i].length; x++) {
+			context += '<td>' + data[i][x] + '</td>';
+			data[i]['ignored'] = false;
+			data[i]['password'] = generatePassword();
+		}
+		context += '</tr>';
+	}
+	
+	optionWithOptional += option ;
+	usernameOption.html(option);
+	firstnameOption.html(option);
+	middlenameOption.html(optionWithOptional);
+	lastnameOption.html(option);
+	emailOption.html(option);
+	
+	context += '</tbody></table>';
+	tableData = data;
+	csvTableArea.html(context);
+	csvResultArea.show();
+	
+	csvTableArea.children('table').children('tbody').children('tr').on('click', function() {
+		if (tableData[$(this).data('id')]['ignored']) {
+			tableData[$(this).data('id')]['ignored'] = false;
+			$(this).removeClass('cp_create_user_panel_csv_panel_table_ignored');
+		} else {
+			tableData[$(this).data('id')]['ignored'] = true;
+			$(this).addClass('cp_create_user_panel_csv_panel_table_ignored');
+		}
+	});
+}
+
+function generatePassword() {
+    var text = '';
+    var words = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (var i = 0; i < 6; i++)
+        text += words.charAt(Math.floor(Math.random() * words.length));
+
+    return text;
+}
+</script>
+<style>
+#cp_create_user_panel_csv_panel_dropbox {
+	border: 2.5px dashed #607D8B;
+	width: 100%;
+	height: 300px;
+	line-height: 300px;
+	text-align: center;
+	color: #607D8B;
+	font-size: 20px;
+}
+#cp_create_user_panel_csv_panel_dropbox.hover {
+	border-color: #57B564;
+	color: #57B564;
+}
+#cp_create_user_panel_csv_panel_table_area {
+	overflow: auto;
+	background: #FFFFFF;
+	padding: 15px;
+	margin-bottom: 30px;
+}
+#cp_create_user_panel_csv_panel_result_area {
+	display: none;
+}
+.cp_create_user_panel_csv_panel_table_ignored {
+	color: red;
+}
+#cp_create_user_panel_csv_panel_table_area table tbody tr {
+	cursor: pointer;
+}
+#cp_create_user_panel_csv_panel_confirm_area {
+	display: none;
+}
+#cp_create_user_panel_csv_panel_confirm_table_area {
+	overflow: auto;
+	background: #FFFFFF;
+	padding: 15px;
+	margin-bottom: 30px;
+}
+</style>
+
+<div id="cp_create_user_panel">
+  <div class="control_panel_title">
+    <button type="button" class="control_panel_card_title_back_button image_button"><i class="fa fa-chevron-left"></i></button>
+    <span>BACK</span>
+    <div style="float:right"></div>
+  </div>
+  <hr>
+  <div class="tab_panel">
+    <div class="tab_panel_header">
+      <div class="tab_panel_title">Create New User Panel</div>
+      <div class="tab_panel_menu">
+        <ul>
+          <li class="tab_panel_menu_current_title"> <i class="fa fa-plus-circle"></i>ONE-BY-ONE</li>
+          <li><i class="fa fa-file-excel-o"></i>CSV FILE</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab_panel_content">
+      <div id="cp_create_user_panel_obo_panel" class="tab_panel_content_tab" style="display:none;">
+        <form id="cp_create_user_panel_obo_panel_form">
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Username</span>
+            <input type="text" class="form-control" name="username">
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Password</span>
+            <input type="password" class="form-control" name="password">
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Email</span>
+            <input type="text" class="form-control" name="email">
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">First name</span>
+            <input type="text" class="form-control" name="firstName">
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Middle name (Optional)</span>
+            <input type="text" class="form-control" name="middleName">
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Last name</span>
+            <input type="text" class="form-control" name="lastName">
+          </div>
+          <hr>
+          <div class="tab_panel_content_tab_bottom_button_area">
+            <input type="button" value="RESET" class="text_button color_red">
+            <input type="submit" value="SUBMIT" class="text_button color_blue">
+          </div>
+          <div style="clear:both;"></div>
+        </form>
+      </div>
+      <div id="cp_create_user_panel_csv_panel" class="tab_panel_content_tab" >
+        <div id="cp_create_user_panel_csv_panel_dropbox"> &raquo; DROP CSV HERE &laquo; </div>
+        <div id="cp_create_user_panel_csv_panel_result_area">
+          <div id="cp_create_user_panel_csv_panel_table_area"> </div>
+          <span class="tab_panel_control_title">* Click the row that you don't want</span><br>
+          <span class="tab_panel_control_title">* Username must be unique</span><br>
+          <span class="tab_panel_control_title">* Email must be unique</span>
+          <hr>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Which column is username?</span>
+            <select class="form-control" id="cp_create_user_panel_csv_panel_result_username_option">
+            </select>
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Which column is first name?</span>
+            <select class="form-control" id="cp_create_user_panel_csv_panel_result_firstname_option">
+            </select>
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Which column is middle name?</span>
+            <select class="form-control" id="cp_create_user_panel_csv_panel_result_middle_option">
+            </select>
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Which column is last name?</span>
+            <select class="form-control" id="cp_create_user_panel_csv_panel_result_lastname_option">
+            </select>
+          </div>
+          <div class="tab_panel_control"> <span class="tab_panel_control_title">Which column is email?</span>
+            <select class="form-control" id="cp_create_user_panel_csv_panel_result_email_option">
+            </select>
+          </div>
+          <span class="tab_panel_control_title">* Password will be automatically generated</span>
+          <hr>
+          <div class="tab_panel_content_tab_bottom_button_area">
+            <input type="button" value="DISCARD" class="text_button color_red" id="cp_create_user_panel_csv_panel_result_discard_button">
+            <input type="button" value="NEXT" class="text_button color_blue" id="cp_create_user_panel_csv_panel_result_next_button">
+          </div>
+          <div style="clear:both;"></div>
+        </div>
+        <div id="cp_create_user_panel_csv_panel_confirm_area">
+          <div id="cp_create_user_panel_csv_panel_confirm_table_area">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <td>Username</td>
+                  <td>Password</td>
+                  <td>Email</td>
+                  <td>First name</td>
+                  <td>Middle name</td>
+                  <td>Last name</td>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <span class="tab_panel_control_title">* Please keep a record of generated passwords.</span>
+          <hr>
+          <div class="tab_panel_content_tab_bottom_button_area">
+            <input type="button" value="PERVIOUS" class="text_button color_blue" id="cp_create_user_panel_csv_panel_confirm_pervious_button">
+            <input type="button" value="SUBMIT" class="text_button color_blue" id="cp_create_user_panel_csv_panel_confirm_submit_button">
+          </div>
+          <div style="clear:both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<script>
+$(document).ready(function(e) {
+    var form = $('#cp_create_new_user_form');
+	var resetButton = $('#cp_create_new_user_reset_button');
+	var addButton = $('#cp_create_new_user_add_button');
+	
+	resetButton.on('click', function() { form[0].reset(); });
+	addButton.on('click', function() {
+		$.ajax({
+				type: 'POST',
+				url: 'request.php?module=control-panel&do=create-user',
+				dataType: 'json',
+				data: form.serialize(),
+				success: function(data) {
+					if (data.success)
+						alert('OK');
+					else {
+						alert(data.errorMessage);
+					}
+				},
+				error: function() {
+					alert('ERROR');
+				}
+		});
+	});
+});
+</script>
+-->

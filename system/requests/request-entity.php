@@ -85,8 +85,14 @@ class EntityRequest {
 		if (!$entityAdditionalAttributes) return array(false, 'Invalid request');
 		
 		foreach ((array)$additionalAttributes as $name => $value) {
-			$entityAdditionalAttributes[$name]->setValue($value);
+			$additionalAttributes[$name] = processUserInput($value);
+			if (!checkUserInput($value, UserInputType::string))  return array(false, 'Input value not allowed');
 		}
+		
+		foreach ((array)$additionalAttributes as $name => $value)
+			$entityAdditionalAttributes[$name]->setValue($value);
+		
+		return array(true);
 	}
 }
 ?>

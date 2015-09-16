@@ -29,6 +29,10 @@ switch ($module) {
 		require_once 'system/requests/request-systemSetting.php';
 		$request = new SystemSettingRequest();
 		break;
+	case 'tool':
+		require_once 'system/requests/request-tool.php';
+		$request = new ToolRequest();
+		break;
 	default:
 		response(array(false, 'Invalid request'));
 }
@@ -46,7 +50,7 @@ if (isset($result)) response($result); else response(array(false));
 function response($array) {
 	header('Content-Type: application/json');
 	
-	if ($array[0] == true) (array_key_exists(1, $array)) ? exit(json_encode(array('success' => true, 'result' => $array[1]))) : exit(json_encode(array('success' => true)));
+	if ($array[0] == true) (array_key_exists(1, $array)) ? exit(utf8_encode(json_encode(array('success' => true, 'result' => $array[1])))) : exit(json_encode(array('success' => true)));
 	else if ($array[0] == false && array_key_exists(1, $array)) exit(json_encode(array('success' => false, 'errorMessage' => $array[1])));
 	else exit(json_encode(array('success' => false, 'errorMessage' => 'Unexpected error')));
 }
